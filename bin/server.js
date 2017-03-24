@@ -1,3 +1,5 @@
+process.env.MOCK_CLUSTER = true;
+
 var Happner = require('happner-2')
   , path = require('path')
   ;
@@ -17,6 +19,8 @@ var config = {
   },
   components:{
     'happner-cluster-ui':{
+      startMethod: 'start',
+      stopMethod: 'stop',
       web:{
         routes:{
           public:'public'
