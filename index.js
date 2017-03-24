@@ -16,16 +16,22 @@ UI.prototype.public = serveStatic(__dirname + sep + 'public');
 UI.prototype.start = function ($happn, callback) {
 
   this.interval = setInterval(function () {
+
     this.__emitClusterInfo($happn);
+
   }.bind(this), 1000);
 
   callback();
+
 };
 
 
 UI.prototype.stop = function ($happn, callback) {
+
   clearInterval(this.interval);
+
   callback();
+
 };
 
 
