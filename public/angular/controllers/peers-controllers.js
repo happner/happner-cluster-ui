@@ -13,7 +13,7 @@ happnerControllers.controller('PeersController', ['$scope', 'dataService', '$roo
 
     $scope.logs.push({message:message, when:Date.now()});
 
-    $scope.logsDisplay = $scope.logs.reverse().slice(0, 20);
+    $scope.logsDisplay = $scope.logs.slice(0, $scope.logs.length).reverse().slice(0, 20);
 
     $scope.$apply();
   };
