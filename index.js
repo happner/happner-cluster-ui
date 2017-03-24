@@ -8,7 +8,9 @@ var serveStatic = require('serve-static')
 function UI() {
 
   this.interval = null;
-  this.peers = [];
+  this.peerRemoveHandler = null;
+  this.peers = {};
+
 }
 
 
@@ -17,11 +19,21 @@ UI.prototype.public = serveStatic(__dirname + sep + 'public');
 
 UI.prototype.start = function ($happn, callback) {
 
+  if (!$happn._mesh) {
+    return callback(new Error($happn.name + ' requires accessLevel: mesh'));
+  }
+
   this.interval = setInterval(function () {
 
     this.__emitClusterInfo($happn);
 
   }.bind(this), 1000);
+
+  $happn.event['happner-cluster-info'].on('peer/info', this.__handlePeerInfo.bind(this));
+
+  $happn._mesh.happn.server.services.orchestrator.on('peer/remove',
+    this.peerRemoveHandler = this.__handlePeerRemove.bind(this)
+  );
 
   callback();
 
@@ -31,6 +43,10 @@ UI.prototype.start = function ($happn, callback) {
 UI.prototype.stop = function ($happn, callback) {
 
   clearInterval(this.interval);
+
+  // $happn.event['happner-cluster-info'].offPath('peer/info');
+
+  $happn._mesh.happn.server.services.orchestrator.removeListener('peer/remove', this.peerRemoveHandler);
 
   callback();
 
@@ -51,13 +67,33 @@ UI.prototype.job = function ($happn, callback) {
 };
 
 
+UI.prototype.__handlePeerInfo = function (data, meta) {
+
+  this.peers[data.name] = data;
+
+};
+
+
+UI.prototype.__handlePeerRemove = function (name, peer) {
+
+  delete this.peers[name]
+
+};
+
+
 UI.prototype.__emitClusterInfo = function ($happn) {
 
   if (process.env.MOCK_CLUSTER) {
     return this.__mockEmitClusterInfo($happn);
   }
 
-  $happn.emit('cluster/info', {peers: this.peers});
+  var peersArray = Object.keys(this.peers)
+    .sort()
+    .map(function (name) {
+      return this.peers[name];
+    }.bind(this));
+
+  $happn.emit('cluster/info', {peers: peersArray});
 
 };
 
