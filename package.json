@@ -29,5 +29,18 @@
   "dependencies": {
     "async": "^1.5.2",
     "serve-static": "^1.12.1"
+  },
+
+  "happner": {
+    "dependencies": {
+      "happner-cluster-ui": {
+        "happner-cluster-worker": {
+          "version": "^1.0.0",
+          "methods": {
+            "job": {}
+          }
+        }
+      }
+    }
   }
 }

@@ -16,16 +16,36 @@ UI.prototype.public = serveStatic(__dirname + sep + 'public');
 UI.prototype.start = function ($happn, callback) {
 
   this.interval = setInterval(function () {
+
     this.__emitClusterInfo($happn);
+
   }.bind(this), 1000);
 
   callback();
+
 };
 
 
 UI.prototype.stop = function ($happn, callback) {
+
   clearInterval(this.interval);
+
   callback();
+
+};
+
+
+UI.prototype.job = function ($happn, callback) {
+
+  if (process.env.MOCK_CLUSTER) {
+    return callback(null, 'MESH_NAME:COMPONENT_NAME:VERSION');
+  }
+
+  // call remote component running at another peer in the cluster
+  // (added as dependency in package.json)
+
+  $happn.exchange['happner-cluster-worker'].job(callback);
+
 };
 
 
