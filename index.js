@@ -42,7 +42,9 @@ UI.prototype.__emitClusterInfo = function ($happn) {
 
 UI.prototype.__mockEmitClusterInfo = function ($happn) {
 
-  $happn.emit('cluster/info', {
+  var randomItems = {};
+
+  randomItems.serverInfo1 = {
 
     peers: [
       {
@@ -74,7 +76,82 @@ UI.prototype.__mockEmitClusterInfo = function ($happn) {
         ]
       }
     ]
+  };
 
-  });
+  randomItems.serverInfo2 = {
+
+    peers: [
+      {
+        name: 'WORKER_04',
+        version: 'worker-1.0.0',
+        components: [
+          {
+            name: 'info',
+            version: '1.0.0'
+          },
+          {
+            name: 'worker',
+            version: '1.0.0'
+          }
+        ]
+      }
+    ]
+  };
+
+  randomItems.serverInfo3 = {
+
+    peers: [
+      {
+        name: 'WORKER_04',
+        version: 'worker-1.0.0',
+        components: [
+          {
+            name: 'info',
+            version: '1.0.0'
+          },
+          {
+            name: 'worker',
+            version: '1.0.0'
+          }
+        ]
+      },
+      {
+        name: 'WORKER_05',
+        version: 'worker-2.0.0',
+        components: [
+          {
+            name: 'info',
+            version: '1.0.0'
+          },
+          {
+            name: 'worker',
+            version: '1.0.0'
+          }
+        ]
+      },
+      {
+        name: 'WORKER_06',
+        version: 'worker-3.0.0',
+        components: [
+          {
+            name: 'info',
+            version: '1.0.0'
+          },
+          {
+            name: 'worker',
+            version: '1.0.0'
+          },
+          {
+            name: 'blah',
+            version: '1.0.0'
+          }
+        ]
+      }
+    ]
+  };
+
+  var randomIndex = Math.floor(Math.random() * 3) + 1;
+
+  $happn.emit('cluster/info', randomItems['serverInfo' + randomIndex.toString()]);
 
 };

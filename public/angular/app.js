@@ -7,6 +7,7 @@ var happnerApp = angular.module('happnerApp', [
   'ngSanitize',
   'ngAnimate',
   //'ngDragDrop',
+  'ngScrollTop',
   'ui.bootstrap',
   'rt.select2',
   'happner',
