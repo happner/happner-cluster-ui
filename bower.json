@@ -1,0 +1,22 @@
+{
+  "name": "happner-cluster-ui",
+  "version": "0.0.1",
+  "authors": [
+    "happner"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/components",
+    "test"
+  ],
+  "dependencies": {
+    "moment": "^2.18.1",
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "angular": "^1.6.3",
+    "angular-bootstrap": "^2.5.0",
+    "angular-moment": "^1.0.1"
+  }
+}

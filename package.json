@@ -1,0 +1,32 @@
+{
+  "name": "happner-cluster-ui",
+  "version":"0.0.1",
+  "scripts": {
+    "test": "mocha test",
+    "coverage":" XUNIT_FILE=\"reports/TESTS-xunit.xml\" istanbul cover --report lcovonly --dir ./reports _mocha ./test/*.js"
+  },
+  "devDependencies": {
+    "angular": "^1.5.5",
+    "angular-mocks": "^1.5.5",
+    "assert": "^1.4.0",
+    "browser-sync": "*",
+    "chai": "^3.5.0",
+    "gulp": "*",
+    "gulp-coffee": "*",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "*",
+    "istanbul": "^0.4.4",
+    "jsdom": "*",
+    "json-from-schema": "1.10.0",
+    "main-bower-files": "^2.9.0",
+    "mocha": "*",
+    "rimraf": "^2.4.4",
+    "xunit-file": "^1.0.0"
+  },
+  "private": true,
+  "dependencies": {
+    "async": "^1.5.2",
+    "happner-2": "2.7.2"
+  }
+}

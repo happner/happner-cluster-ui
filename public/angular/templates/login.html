@@ -1,0 +1,31 @@
+<div class="login-box">
+    <div>
+        <div class="login-form row" style="background-color:white">
+            <div class="col-sm-12 text-center login-header">
+                <i class="login-logo"><img src="resources/img/HAPPNER%20Logo.png" style="width:200px;margin-top:30px"></img></i>
+            </div>
+            <div class="col-sm-12">
+                <div class="login-body">
+                    <form>
+                        <div class="control">
+                            <label for="username">username</label>
+                            <input id="username" type="text" class="form-control" ng-model="connection.username"/>
+                        </div>
+                        <div class="control">
+                            <label for="password">password</label>
+                            <input id="password" type="password" class="form-control" ng-model="connection.password"
+                                   value="password"/>
+                        </div>
+                        <div class="login-button text-center">
+                            <input type="submit" class="btn btn-primary" value="Login" ng-click="loginClicked()">
+                        </div>
+                        <div ng-if="data.message.display" ng-include src="'/angular/templates/notify-right.html'"></div>
+                    </form>
+                </div>
+                <div class="login-footer">
+                    <span class="text-right"><a href="#" class="color-white">Forgot password?</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
