@@ -35,6 +35,17 @@ UI.prototype.stop = function ($happn, callback) {
 };
 
 
+UI.prototype.job = function ($happn, callback) {
+
+  if (process.env.MOCK_CLUSTER) {
+    return callback(null, 'MESH_NAME:COMPONENT_NAME:VERSION');
+  }
+
+  //...
+
+};
+
+
 UI.prototype.__emitClusterInfo = function ($happn) {
 
   if (process.env.MOCK_CLUSTER) {
