@@ -43,5 +43,3 @@ dist
 
 #db files
 *.nedb
-
-test/temp
