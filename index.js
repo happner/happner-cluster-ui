@@ -43,6 +43,8 @@ UI.prototype.job = function ($happn, callback) {
 
   //...
 
+  callback(null, 'MESH_NAME:COMPONENT_NAME:VERSION');
+
 };
 
 
