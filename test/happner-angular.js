@@ -51,7 +51,7 @@ describe('happn-angular', function () {
   var PASSWORD = "happn";
 
   require('./fixtures/happner-angular-test-helper');
-  require('../middleware/static/angular/services/happner-angular');
+  require('../public/angular/services/happner-angular');
 
   before("create a happner instance", function (done) {
 
