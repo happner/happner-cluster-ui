@@ -33,7 +33,7 @@ node_modules
 .node_repl_history
 
 # distribution/production code
-dist
+# dist
 
 # JetBrains IDE files
 .idea
@@ -44,4 +44,3 @@ dist
 #db files
 *.nedb
 
-components.new
