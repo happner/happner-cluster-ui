@@ -36,15 +36,15 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
 
   // route for the home page
     .when('/', {
-      templateUrl : '/angular/templates/dashboard.html'
+      templateUrl : './angular/templates/dashboard.html'
     })
 
     .when('/dashboard', {
-      templateUrl : '/angular/templates/dashboard.html'
+      templateUrl : './angular/templates/dashboard.html'
     })
 
-    .when('/nodes', {
-      templateUrl : '/angular/templates/nodes.html'
+    .when('/peers', {
+      templateUrl : './angular/templates/peers.html'
     })
   ;
 

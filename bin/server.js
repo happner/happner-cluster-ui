@@ -9,7 +9,22 @@ var service;
 var config = {
   happn:{
     secure:true,
-    adminPassword:'happnerclusterdemo'
+    adminPassword:'happnerclusterdemo',
+    middleware: {
+      security: {
+        exclusions: [
+          "/",
+          "/css/*",
+          "/js/*",
+          "/fonts/*",
+          "/angular/*",
+          "/components/*",
+          "/img/*",
+          "/icons/*",
+          "/favicon.ico"
+        ]
+      }
+    }
   },
   web:{
     routes:{

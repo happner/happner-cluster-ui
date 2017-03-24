@@ -9,7 +9,7 @@ happnerControllers.controller('AppController', ['$scope', 'dataService', '$rootS
     port: $location.port(),
     protocol: $location.protocol(),
     username: '_ADMIN',
-    password: 'HappnerHubAdmin01',
+    password: 'happnerclusterdemo',
     message: ''
   };
 
@@ -21,7 +21,7 @@ happnerControllers.controller('AppController', ['$scope', 'dataService', '$rootS
 
   $rootScope.data = {
     application: {
-      name: 'Edge fund'
+      name: 'happner cluster'
     },
     cache: {},
     message: {
@@ -155,29 +155,29 @@ happnerControllers.controller('SessionController', ['$scope', 'dataService', '$r
 
   $scope.menuClicked = function (instruction) {
 
-    var instructionParts = instruction.split('|');
-
-    var type = instructionParts[0];
-    var action = instructionParts[1];
-
-    var id = 'new';
-
-    if (instructionParts.length > 2) id = instructionParts[2];
-
-    var view = type + '-' + action;
-
-    //anything other than these special types can get processed using the generic data module
-    if (['data','schema','app-schema'].indexOf(type) == -1) view = 'data' + '-' + action;
-
-    $scope.page.type = type;
-    $scope.page.id = id;
-
-    $scope.page.view = "/angular/templates/blank.html";
-
-    $rootScope.safeApply();
-
-    $scope.page.view = "/angular/templates/" + view + ".html";
-    $scope.page.header = view.replace("-", " ");
+    // var instructionParts = instruction.split('|');
+    //
+    // var type = instructionParts[0];
+    // var action = instructionParts[1];
+    //
+    // var id = 'new';
+    //
+    // if (instructionParts.length > 2) id = instructionParts[2];
+    //
+    // var view = type + '-' + action;
+    //
+    // //anything other than these special types can get processed using the generic data module
+    // if (['data','schema','app-schema'].indexOf(type) == -1) view = 'data' + '-' + action;
+    //
+    // $scope.page.type = type;
+    // $scope.page.id = id;
+    //
+    // $scope.page.view = "/angular/templates/blank.html";
+    //
+    // $rootScope.safeApply();
+    //
+    // $scope.page.view = "/angular/templates/" + view + ".html";
+    // $scope.page.header = view.replace("-", " ");
 
     $rootScope.safeApply();
 
