@@ -5,6 +5,10 @@ var Happner = require('happner-2')
 var service;
 
 var config = {
+  happn:{
+    secure:true,
+    adminPassword:'happnerclusterdemo'
+  },
   web:{
     routes:{
       '/':'happner-cluster-ui/public'

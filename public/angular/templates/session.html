@@ -1,0 +1,3 @@
+<a ng-if="data.session.status=='connected'" class="alert-success">connected</a>
+<a ng-if="data.session.status=='reconnecting'" class="alert-warning">connecting...</a>
+<a class="alert-danger" ng-if="data.session.status=='connection terminated'">connection closed</a>

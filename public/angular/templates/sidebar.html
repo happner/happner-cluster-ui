@@ -1,0 +1,52 @@
+<div class="side-menu sidebar-inverse">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="side-menu-container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/#/dashboard">
+                    <div class="icon fa fa-tachometer"></div>
+                    <div class="title">{{data.application.name}}</div>
+                </a>
+                <button type="button" class="navbar-expand-toggle pull-right visible-xs">
+                    <i class="fa fa-times icon"></i>
+                </button>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="panel panel-default dropdown">
+                    <a data-toggle="collapse" href="#ux_test">
+                        <span class="icon fa fa-cube"></span><span class="title">Nodes</span>
+                    </a>
+                    <!-- Dropdown level 1 -->
+                    <div id="ux_test" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/#/nodes">list</a>
+                                </li>
+                            </ul>s
+                        </div>
+                    </div>
+                </li>
+                <li class="panel panel-default dropdown">
+                    <a data-toggle="collapse" href="#ux_security">
+                        <span class="icon fa fa-users"></span><span class="title">Security</span>
+                    </a>
+                    <!-- Dropdown level 1 -->
+                    <div id="ux_security" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/#/data/User/edit/new">new user</a>
+                                </li>
+                                <li><a href="/#/data/User/search">search users</a>
+                                </li>
+                                <li><a href="/#/data/Group/edit/new">new group</a>
+                                </li>
+                                <li><a href="/#/data/Group/search">search groups</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+</div>

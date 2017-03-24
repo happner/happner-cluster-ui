@@ -1,0 +1,107 @@
+<div class="side-body padding-top" ng-show="loggedIn" ng-controller="DashboardController">
+    <div class="row bump-down">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <a ng-click="itemClicked('system-log')">
+                <div class="card green summary-inline">
+                    <div class="card-body">
+                        <i class="icon fa fa-heartbeat fa-4x"></i>
+                        <div class="content">
+                            <div class="title">uptime</div>
+                            <div class="sub-title">{{dashboardData.uptime | amTimeAgo}}</div>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <a ng-click="itemClicked('requests-log')">
+                <div class="card gray summary-inline">
+                    <div class="card-body">
+                        <i class="icon fa fa-tachometer fa-4x"></i>
+                        <div class="content">
+                            <div class="title">{{dashboardData.load}}</div>
+                            <div class="sub-title">request/sec</div>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <a ng-click="itemClicked('system-log')">
+                <div class="card yellow summary-inline">
+                    <div class="card-body">
+                        <i class="icon fa fa-power-off fa-4x"></i>
+                        <div class="content">
+                            <div class="title">{{dashboardData.restarts}}</div>
+                            <div class="sub-title">restarts</div>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <a ng-click="itemClicked('errors-list')">
+                <div class="card red summary-inline">
+                    <div class="card-body">
+                        <i class="icon fa fa-warning fa-4x"></i>
+                        <div class="content">
+                            <div class="title">{{dashboardData.errors}}</div>
+                            <div class="sub-title">errors</div>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="row  no-margin-bottom">
+        <div class="col-sm-6 col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="card primary">
+                        <div class="card-jumbotron no-padding" ng-controller="DashboardChartController">
+                            <canvas id="line" class="chart chart-line" chart-data="line.data" chart-labels="line.labels"
+                                    chart-series="line.series">
+                            </canvas>
+                        </div>
+                        <div class="card-body half-padding">
+                            <h4 class="float-left no-margin font-weight-300">system activity</h4>
+                            <h2 class="float-right no-margin font-weight-300"></h2>
+                            <div class="clear-both"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="card card-success">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="title"><i class="fa fa-cube"></i> recent activity</div>
+                    </div>
+                    <div class="clear-both"></div>
+                </div>
+                <div class="card-body no-padding">
+                    <ul class="message-list">
+                        <li><br/></li>
+
+                        <a ng-repeat="item in dashboardData.last10items" ng-click="itemClicked(item.itemType, item.id, item.name, item.parentId)">
+                            <li>
+                                <span class="profile-img pull-left fa fa-{{item.itemIcon}}" style="font-size:32px"></span>
+                                <div class="message-block">
+                                    <div><span class="username">{{item.itemType}} modified</span> <span class="message-datetime" am-time-ago="item.when"></span>
+                                    </div>
+                                    <div class="message">{{item.itemType}} <strong>{{item.name}}</strong> has been modified.</div>
+                                </div>
+                            </li>
+                        </a>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

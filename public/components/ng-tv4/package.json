@@ -1,0 +1,20 @@
+{
+  "name": "ng-tv4",
+  "lib": "tv4",
+  "version": "0.1.5",
+  "description": "angular wrapper for tv4 library",
+  "main": "ng-tv4.js",
+  "scripts": {
+    "postinstall": "nodejs build.js"
+  },
+  "keywords": [
+    "angular",
+    "tv4"
+  ],
+  "author": "Jesús Germade <jesus@germade.es>",
+  "license": "ISC",
+  "devDependencies": {
+    "ngizer": "^1.0.8",
+    "tv4": "^1.1.9"
+  }
+}

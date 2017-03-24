@@ -1,0 +1,22 @@
+{
+  "name": "ng-tv4",
+  "main": "ng-tv4.js",
+  "version": "0.1.5",
+  "homepage": "https://github.com/ngTools/ng-tv4",
+  "authors": [
+    "Jesús Germade <jesus@germade.es>"
+  ],
+  "description": "angular wrapper for tv4",
+  "keywords": [
+    "angular",
+    "tv4"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

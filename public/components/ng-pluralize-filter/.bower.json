@@ -1,0 +1,46 @@
+{
+  "name": "ng-pluralize-filter",
+  "version": "1.0.2",
+  "authors": [
+    "Mikael Härsjö <mikael.harsjo@gmail.com>",
+    "Brant Wellons"
+  ],
+  "description": "Angular filter that transforms english nouns into its plural form",
+  "main": "ng-pluralize-filter.js",
+  "ignore": [
+    "gulpfile.js",
+    "karma.conf.js",
+    "**/*.spec.js",
+    "package.json",
+    "travis.yml"
+  ],
+  "keywords": [
+    "pluralise",
+    "ngpluralizefilter",
+    "plural",
+    "pluralize",
+    "angular",
+    "filter",
+    "english",
+    "plural",
+    "singular",
+    "ng"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1"
+  },
+  "homepage": "https://github.com/mikaelharsjo/ngPluralizeFilter",
+  "_release": "1.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.2",
+    "commit": "5393f389d9134d8f80876e0e274dfc8dea254dcc"
+  },
+  "_source": "https://github.com/mikaelharsjo/ngPluralizeFilter.git",
+  "_target": "^1.0.1",
+  "_originalSource": "ng-pluralize-filter"
+}
