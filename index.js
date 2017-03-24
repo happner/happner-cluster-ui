@@ -41,9 +41,10 @@ UI.prototype.job = function ($happn, callback) {
     return callback(null, 'MESH_NAME:COMPONENT_NAME:VERSION');
   }
 
-  //...
+  // call remote component running at another peer in the cluster
+  // (added as dependency in package.json)
 
-  callback(null, 'MESH_NAME:COMPONENT_NAME:VERSION');
+  $happn.exchange['happner-cluster-worker'].job(callback);
 
 };
 
