@@ -6,7 +6,9 @@ var serveStatic = require('serve-static')
   ;
 
 function UI() {
+
   this.interval = null;
+  this.peers = [];
 }
 
 
@@ -55,7 +57,7 @@ UI.prototype.__emitClusterInfo = function ($happn) {
     return this.__mockEmitClusterInfo($happn);
   }
 
-  //...
+  $happn.emit('cluster/info', {peers: this.peers});
 
 };
 
