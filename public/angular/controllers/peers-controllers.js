@@ -54,17 +54,19 @@ happnerControllers.controller('PeersController', ['$scope', 'dataService', '$roo
 
       latest.peers.forEach(function(latestPeer, latestPeerIndex){
 
-        if (latestPeer.name == existingPeer.name) found = true;
+        if (latestPeer.name == existingPeer.name) {
+          found = true;
+        }
       });
 
       if (!found) {
-        $scope.topology.peers.splice(existingPeerIndex, 1);
+
+        $scope.topology.peers.splice($scope.topology.peers.length - (existingPeerIndex + 1), 1);
         dataChanged = true;
       }
     });
 
     return dataChanged;
-
   };
 
   dataService.client.event['happner-cluster-ui'].on('cluster/info', function(data){
@@ -85,7 +87,6 @@ happnerControllers.controller('PeersController', ['$scope', 'dataService', '$roo
       $scope.updateLog('job performed by: ' + result);
 
     });
-
   }, 1000);
 
 }]);
