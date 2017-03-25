@@ -4,6 +4,10 @@ var Happner = require('happner-2')
   , path = require('path')
   ;
 
+function MockClusterInfo(){}
+
+var clusterInfo = new MockClusterInfo();
+
 var service;
 
 var config = {
@@ -34,10 +38,14 @@ var config = {
   modules:{
     'happner-cluster-ui':{
       path:path.resolve(__dirname, '../')
+    },
+    'happner-cluster-info':{
+      instance:clusterInfo
     }
   },
   components:{
     'happner-cluster-ui':{
+      accessLevel:'mesh',
       startMethod: 'start',
       stopMethod: 'stop',
       web:{
@@ -45,6 +53,9 @@ var config = {
           public:'public'
         }
       }
+    },
+    'happner-cluster-info':{
+      accessLevel:'mesh'
     }
   }
 };

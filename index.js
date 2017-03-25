@@ -29,6 +29,8 @@ UI.prototype.start = function ($happn, callback) {
 
   }.bind(this), 1000);
 
+  if (process.env.MOCK_CLUSTER) return callback();
+
   $happn.event['happner-cluster-info'].on('peer/info', this.__handlePeerInfo.bind(this));
 
   $happn._mesh.happn.server.services.orchestrator.on('peer/remove',
@@ -43,6 +45,8 @@ UI.prototype.start = function ($happn, callback) {
 UI.prototype.stop = function ($happn, callback) {
 
   clearInterval(this.interval);
+
+  if (process.env.MOCK_CLUSTER) return callback();
 
   // $happn.event['happner-cluster-info'].offPath('peer/info');
 
