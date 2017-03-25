@@ -1,34 +1,70 @@
 <div class="side-body padding-top" ng-show="loggedIn" ng-controller="PeersController">
+
   <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
-    <ul class="list-group">
-      <li ng-repeat="peer in topology.peers track by peer.name" class="list-group-item">
-        <div data-toggle="collapse" data-target="#peer_{{peer.name}}" style="cursor:pointer">
-          <span class="icon fa fa-cube text-success"></span><span class="title"> {{peer.name}} {{peer.version}}</span>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="title"><i class="fa fa-cube"></i> peers</div>
         </div>
-        <!-- Dropdown level 1 -->
-        <!-- <div id="peer_{{peer.name}}" class="panel-collapse collapse">-->
-        <div id="peer_{{peer.name}}" class="panel-collapse collapse">
-          <div class="panel-body">
-            <ul class="list-group">
-              <li class="list-group-item">Components:</li>
-              <li class="list-group-item" ng-repeat="component in peer.components">{{component.name}} {{component.version}}</li>
-            </ul>
-          </div>
-        </div>
-      </li>
-    </ul>
+        <div class="clear-both"></div>
+      </div>
+      <div class="card-body no-padding">
+
+        <ul class="list-group">
+          <li ng-repeat="peer in topology.peers track by peer.name" class="list-group-item">
+            <div data-toggle="collapse" data-target="#peer_{{peer.name}}" style="cursor:pointer">
+              <span class="icon fa fa-cube text-success"></span><span class="title"> {{peer.name}} {{peer.version}}</span>
+            </div>
+            <!-- Dropdown level 1 -->
+            <!-- <div id="peer_{{peer.name}}" class="panel-collapse collapse">-->
+            <div id="peer_{{peer.name}}" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="list-group">
+                  <li class="list-group-item">Components:</li>
+                  <li class="list-group-item" ng-repeat="component in peer.components">{{component.name}} {{component.version}}</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
   </div>
-  <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
-  <ul class="message-list">
-    <li><br/></li>
-    <a ng-repeat="item in logsDisplay">
-      <li>
-        <div class="message-block">
-          <div><span class="username">{{item.message}}</span><br><span class="message-datetime" am-time-ago="item.when"></span>
-          </div>
+
+  <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="title"><i class="fa fa-log"></i> activity log</div>
         </div>
-      </li>
-    </a>
-  </ul>
+        <div class="clear-both"></div>
+      </div>
+      <div class="card-body no-padding">
+
+        <ul class="message-list">
+          <li><br/></li>
+          <a ng-repeat="item in logsDisplay">
+            <li>
+              <div class="message-block">
+                <div><span class="username">{{item.message}}</span><br><span class="message-datetime" am-time-ago="item.when"></span>
+                </div>
+              </div>
+            </li>
+          </a>
+        </ul>
+      </div>
+    </div>
+
   </div>
+  <!--
+  <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8" style="height:95%;overflow:auto">
+
+  </div>
+  <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" style="height:95%;overflow:auto">
+
+  </div>
+  -->
 </div>
