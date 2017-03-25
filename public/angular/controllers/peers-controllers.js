@@ -77,7 +77,13 @@ happnerControllers.controller('PeersController', ['$scope', 'dataService', '$roo
 
     dataService.client.exchange['happner-cluster-ui'].job(function(e, result){
 
+      if (e) {
+        $scope.updateLog('job error: ' + e.toString());
+        return;
+      }
+
       $scope.updateLog('job performed by: ' + result);
+
     });
 
   }, 1000);

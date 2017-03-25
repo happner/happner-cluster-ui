@@ -34,6 +34,9 @@
   "happner": {
     "dependencies": {
       "happner-cluster-ui": {
+        "happner-cluster-info": {
+          "version": "^1.0.0"
+        },
         "happner-cluster-worker": {
           "version": "^1.0.0",
           "methods": {
