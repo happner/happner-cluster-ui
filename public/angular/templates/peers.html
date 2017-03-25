@@ -3,7 +3,7 @@
     <ul class="list-group">
       <li ng-repeat="peer in topology.peers track by peer.name" class="list-group-item">
         <div data-toggle="collapse" data-target="#peer_{{peer.name}}" style="cursor:pointer">
-          <span class="icon fa fa-cube"></span><span class="title"> {{peer.name}} {{peer.version}}</span>
+          <span class="icon fa fa-cube text-success"></span><span class="title"> {{peer.name}} {{peer.version}}</span>
         </div>
         <!-- Dropdown level 1 -->
         <!-- <div id="peer_{{peer.name}}" class="panel-collapse collapse">-->

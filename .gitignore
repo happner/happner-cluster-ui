@@ -32,9 +32,6 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
-# distribution/production code
-dist
-
 # JetBrains IDE files
 .idea
 
