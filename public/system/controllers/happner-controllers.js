@@ -107,7 +107,7 @@ happnerControllers.controller('AppController', ['$scope', 'dataService', '$rootS
       }
     };
 
-    return $scope.openModal('/angular/templates/' + type + '-new.html', controller, handler);
+    return $scope.openModal('/system/templates/' + type + '-new.html', controller, handler);
   };
 
   $rootScope.to_trusted = function (html_code) {
@@ -143,8 +143,8 @@ happnerControllers.controller('SessionController', ['$scope', 'dataService', '$r
 
 
   $scope.page = {
-    view: "/angular/templates/dashboard.html",
-    sidebar:"/angular/templates/sidebar.html",
+    view: "/system/templates/dashboard.html",
+    sidebar:"/system/templates/sidebar.html",
     header: "dashboard"
   };
 

@@ -10,27 +10,27 @@
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
 
     <!-- CSS Libs -->
-    <link rel="stylesheet" href="resources/css/glyphicons.css">
-    <link rel="stylesheet" type="text/css" href="/components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="system-resources/css/glyphicons.css">
+    <link rel="stylesheet" type="text/css" href="/system-components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/system-components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/system-components/animate.css/animate.min.css">
     <link rel="stylesheet" type="text/css"
-          href="/components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css">
-    <link rel="stylesheet" type="text/css" href="/components/checkbox3/dist/checkbox3.min.css">
-    <link rel="stylesheet" type="text/css" href="/components/datatables/media/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="/components/datatables/media/css/dataTables.bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/components/select2/select2.css">
+          href="/system-components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/system-components/checkbox3/dist/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/system-components/datatables/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/system-components/datatables/media/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/system-components/select2/select2.css">
 
     <!-- CSS App -->
-    <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-    <link rel="stylesheet" type="text/css" href="resources/css/themes/flat-gray.css">
+    <link rel="stylesheet" type="text/css" href="system-resources/css/style.css">
+    <link rel="stylesheet" type="text/css" href="system-resources/css/themes/flat-gray.css">
 
 </head>
 
 <body class="flat-gray" ng-cloak ng-class="{'login-page': loggedIn == false || loggedIn == null}" ng-app="happnerApp"
       ng-controller="AppController">
 <div ng-hide="loggedIn" class="container">
-    <div ng-include src="'/angular/templates/login.html'"></div>
+    <div ng-include src="'/system/templates/login.html'"></div>
 </div>
 <div ng-cloak ng-show="loggedIn" class="app-container" ng-controller="SessionController">
     <div class="row content-container">
@@ -51,10 +51,10 @@
                     <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                         <i class="fa fa-times icon"></i>
                     </button>
-                    <li class="dropdown" ng-include src="'/angular/templates/notify-inline.html'">
+                    <li class="dropdown" ng-include src="'/system/templates/notify-inline.html'">
 
                     </li>
-                    <li class="dropdown" ng-include src="'/angular/templates/session.html'">
+                    <li class="dropdown" ng-include src="'/system/templates/session.html'">
 
                     </li>
                     <li class="dropdown profile">
@@ -90,55 +90,54 @@
 </div>
 
 <!-- Javascript Libs -->
-<script type="text/javascript" src="/components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="/components/jquery-ui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
-<script type="text/javascript" src="/components/matchHeight/jquery.matchHeight.js"></script>
-<script type="text/javascript" src="/components/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/components/datatables/media/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript" src="/components/select2/select2.min.js"></script>
+<script type="text/javascript" src="/system-components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/system-components/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/system-components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/system-components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="/system-components/matchHeight/jquery.matchHeight.js"></script>
+<script type="text/javascript" src="/system-components/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/system-components/datatables/media/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="/system-components/select2/select2.min.js"></script>
 
-<script src="/components/json-editor/dist/jsoneditor.js"></script>
+<script src="/system-components/json-editor/dist/jsoneditor.js"></script>
 
 <!-- Happner API -->
 <script type="text/javascript" src="/api/client"></script>
 
 <!-- Angular -->
 
-<script src="/components/angular/angular.js"></script>
-<script src="/components/angular-sanitize/angular-sanitize.min.js"></script>
-<script src="/components/angular-animate/angular-animate.min.js"></script>
-<script src="/components/angular-route/angular-route.min.js"></script>
-<script src="/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="/components/angular-json-editor/dist/angular-json-editor.js"></script>
-<script src="/components/angular-select2/dist/angular-select2.min.js"></script>
-<script src="/components/angular-scroll-glue/src/scrollglue.js"></script>
-<script src="/components/angu-fixed-header-table/angu-fixed-header-table.js"></script>
-<script src="/components/moment/min/moment.min.js"></script>
-<script src="/components/angular-moment/angular-moment.min.js"></script>
-<script src="/components/ng-tv4/ng-tv4.js"></script>
-<script src="/components/ng-pluralize-filter/ng-pluralize-filter.js"></script>
+<script src="/system-components/angular/angular.js"></script>
+<script src="/system-components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="/system-components/angular-animate/angular-animate.min.js"></script>
+<script src="/system-components/angular-route/angular-route.min.js"></script>
+<script src="/system-components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="/system-components/angular-json-editor/dist/angular-json-editor.js"></script>
+<script src="/system-components/angular-select2/dist/angular-select2.min.js"></script>
+<script src="/system-components/angular-scroll-glue/src/scrollglue.js"></script>
+<script src="/system-components/angu-fixed-header-table/angu-fixed-header-table.js"></script>
+<script src="/system-components/moment/min/moment.min.js"></script>
+<script src="/system-components/angular-moment/angular-moment.min.js"></script>
+<script src="/system-components/ng-tv4/ng-tv4.js"></script>
+<script src="/system-components/ng-pluralize-filter/ng-pluralize-filter.js"></script>
 
-<!--<script src="/angular/directives/ngDragDrop.js"></script>-->
+<!--<script src="/system/directives/ngDragDrop.js"></script>-->
 
-<script src="/angular/directives/ngScrollTop.js"></script>
+<script src="/system/directives/ngScrollTop.js"></script>
 
-<script src="/angular/services/happner-angular.js"></script>
+<script src="/system/services/happner-angular.js"></script>
 
-<script src="/angular/services/happner-services.js"></script>
-
-
-<script src="/angular/controllers/happner-controllers.js"></script>
-
-<script src="/angular/controllers/peers-controllers.js"></script>
-
-<script src="/angular/controllers/dashboard-controllers.js"></script>
-
-<script src="/angular/controllers/sidebar-controllers.js"></script>
+<script src="/system/services/happner-services.js"></script>
 
 
-<script src="/angular/app.js"></script>
+<script src="/system/controllers/happner-controllers.js"></script>
+
+<script src="/cluster/controllers/peers-controllers.js"></script>
+
+<script src="/system/controllers/dashboard-controllers.js"></script>
+
+<script src="/system/controllers/sidebar-controllers.js"></script>
+
+<script src="/app.js"></script>
 
 <!-- JQuery/Javascript -->
 

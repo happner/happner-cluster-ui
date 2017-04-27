@@ -105,12 +105,12 @@ happnerControllers.controller('DashboardController', ['$scope', 'dataService', '
 
     if (itemId){
 
-      var view = '../angular/templates/' + itemType + '-edit.html?' + itemType + 'Id=' + itemId;
+      var view = '../system/templates/' + itemType + '-edit.html?' + itemType + 'Id=' + itemId;
       $scope.page.view = view;
       $scope.page.header = itemType + ' ' + itemName;
 
     }else{
-      $scope.page.view = '../angular/templates/' + itemType + '-list.html';
+      $scope.page.view = '../system/templates/' + itemType + '-list.html';
 
       if (itemType == 'policy') itemType = 'policie';
 
@@ -122,7 +122,7 @@ happnerControllers.controller('DashboardController', ['$scope', 'dataService', '
   $scope.openDocument = function(document, openType){
     var pathSegments = document._meta.path.split('/');
     var documentId = pathSegments[pathSegments.length - 1];
-    $scope.page.view = '../angular/templates/document' + '-' + openType + '.html?documentId=' + documentId;
+    $scope.page.view = '../system/templates/document' + '-' + openType + '.html?documentId=' + documentId;
     $scope.page.header = 'document ' + ' ' + document.name;
     $scope.$apply();
   }

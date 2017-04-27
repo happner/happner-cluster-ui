@@ -23,7 +23,7 @@
     "mocha": "*",
     "rimraf": "^2.4.4",
     "xunit-file": "^1.0.0",
-    "happner-2": "2.7.2"
+    "happner-2": "2.7.5"
   },
   "private": true,
   "dependencies": {
