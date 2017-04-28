@@ -451,8 +451,8 @@ happnerApp.controller('DataSchemaSearchController', ['$scope', '$rootScope', '$w
             ]
           };
 
-          dataRow.editURI = '/schema/edit/' + schema.title;
-          dataRow.deleteURI = '/schema/delete/' + schema.title;
+          dataRow.editURI = '/warehouse/schema/edit/' + schema.title;
+          dataRow.deleteURI = '/warehouse/schema/delete/' + schema.title;
 
           $scope.data.rows.push(dataRow);
         });
@@ -465,7 +465,7 @@ happnerApp.controller('DataSchemaSearchController', ['$scope', '$rootScope', '$w
 
       var id = row.columns[0];
 
-      $scope.page.view = "../angular/templates/schema-edit.html?schemaId=" + id;
+      $scope.page.view = "../warehouse/templates/schema-edit.html?schemaId=" + id;
       $scope.page.header = 'edit schema';
     };
 

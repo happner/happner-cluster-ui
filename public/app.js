@@ -128,29 +128,54 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
       templateUrl : './assemblyline/templates/assemblyline_edit.html'
     })
 
-    .when('/warehouse/search', {
-      templateUrl : './warehouse/templates/warehouse_search.html'
-    })
-
-    .when('/warehouse/edit/:id', {
-      templateUrl : './warehouse/templates/warehouse_edit.html'
-    })
-
+    // route for the about page
     .when('/warehouse/schema/search', {
-      templateUrl : './warehouse/templates/schema_search.html'
+      templateUrl : '/warehouse/templates/data-search.html',
+      controller:'DataSchemaSearchController'
     })
 
-    .when('/warehouse/schema/edit/:id', {
-      templateUrl : './warehouse/templates/schema_edit.html'
+    .when('/warehouse/schema/edit/:type', {
+      templateUrl: function(urlattr){
+        return  '/warehouse/templates/schema-edit.html?type=' + (urlattr.type?urlattr.type:'new');
+      }
     })
 
-    .when('/warehouse/object/search', {
-      templateUrl : './warehouse/templates/object_search.html'
+    .when('/warehouse/data/:type/search', {
+      templateUrl: function(urlattr){
+        return '/warehouse/templates/data-search.html?type=' + urlattr.type;
+      },
+      controller:'DataSearchController'
     })
 
-    .when('/warehouse/object/edit/:id', {
-      templateUrl : './warehouse/templates/object_edit.html'
+    .when('/warehouse/data/:type/edit/:id', {
+      templateUrl: function(urlattr){
+        return "/warehouse/templates/data-edit.html?type=" + urlattr.type + '&id=' + (urlattr.id?urlattr.id:'new');
+      }
     })
+
+    // .when('/warehouse/search', {
+    //   templateUrl : './warehouse/templates/warehouse_search.html'
+    // })
+    //
+    // .when('/warehouse/edit/:id', {
+    //   templateUrl : './warehouse/templates/warehouse_edit.html'
+    // })
+    //
+    // .when('/warehouse/schema/search', {
+    //   templateUrl : './warehouse/templates/schema_search.html'
+    // })
+    //
+    // .when('/warehouse/schema/edit/:id', {
+    //   templateUrl : './warehouse/templates/schema_edit.html'
+    // })
+    //
+    // .when('/warehouse/object/search', {
+    //   templateUrl : './warehouse/templates/object_search.html'
+    // })
+    //
+    // .when('/warehouse/object/edit/:id', {
+    //   templateUrl : './warehouse/templates/object_edit.html'
+    // })
 
     .when('/warehouse/report/search', {
       templateUrl : './warehouse/templates/report_search.html'
