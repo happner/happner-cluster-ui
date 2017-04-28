@@ -1,0 +1,28 @@
+{
+  "schema": "User",
+  "filters": [
+    "username"
+  ],
+  "list_fields": [
+    "username",
+    "created",
+    "modified"
+  ],
+  "non_editable_fields": [
+    "status",
+    "created",
+    "modified"
+  ],
+  "non_updatable_fields": [
+    "username"
+  ],
+  "sidebar": {
+    "display": true,
+    "group": "Security"
+  },
+  "allow_create": true,
+  "allow_delete": true,
+  "allow_update": true,
+  "allow_search": true,
+  "icon":"users"
+}

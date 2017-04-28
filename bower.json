@@ -37,7 +37,9 @@
     "ng-tv4": "^0.1.5",
     "angular-route": "^1.5.8",
     "angu-fixed-header-table": "^1.2.0",
-    "ng-pluralize-filter": "^1.0.1"
+    "ng-pluralize-filter": "^1.0.1",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.7.0",
+    "angular-awesome-slider": "~2.4.4"
   },
   "resolutions": {
     "jquery": "^3.2.1"

@@ -1,0 +1,52 @@
+<div class="side-body padding-top" ng-show="loggedIn" ng-controller="DataEditController">
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10" id="editor_holder">
+            <div class="card-body" id="editor-container">
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+            <div class="sidebar-nav-fixed affix" style="width:220px">
+                <div class="card card-gray">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="title"><i class="fa fa-edite"></i> actions</div>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                    <div class="card-body no-padding">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a href="/#/data/{{currentType}}/search" class="btn btn-primary"><span class="fa fa-search"></span> search</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-success" ng-click="saveData()"><span class="fa fa-save"></span> save</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-danger" ng-click="deleteData()"><span class="fa fa-minus-square"></span> delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card card-gray">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="title"><i class="fa fa-alert"></i> recent activity</div>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                    <div class="card-body no-padding">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li ng-repeat="change in changes">
+                                <a>
+                                    <span class="fa fa-info-circle"></span>
+                                    <span class="message">{{change.message}}</span>
+                                    <span class="message-datetime" am-time-ago="change.data._meta.modified"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

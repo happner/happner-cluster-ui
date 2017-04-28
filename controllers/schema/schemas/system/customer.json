@@ -1,0 +1,36 @@
+{
+  "title":"Customer",
+  "properties":{
+    "name":{
+      "type":"string",
+      "required":true
+    },
+    "publicKey":{
+      "type":"string",
+      "required":true
+    },
+    "status":{
+      "type":"string",
+      "enum":["lead","active","inactive"],
+      "required":true
+    },
+    "number":{
+      "type":"integer",
+      "#ref":"increment",
+      "required":true
+    },
+    "referredBy":{
+      "type":"number"
+    },
+    "created":{
+      "type":"string",
+      "format":"datetime-local",
+      "readOnly":true
+    },
+    "modified":{
+      "type":"string",
+      "format":"datetime-local",
+      "readOnly":true
+    }
+  }
+}

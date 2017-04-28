@@ -1,19 +1,24 @@
-process.env.MOCK_CLUSTER = true;
+var path = require('path')
 
-var Happner = require('happner-2')
-  , path = require('path')
-  ;
+/***********************************************************
+ default to the test .env file to load environment variables
+ ***********************************************************/
+
+if (!process.env.EDGE_NODE_ENV || process.env.EDGE_NODE_ENV == 'TEST') require('dotenv').config({path: './test/.env-test'});
 
 function MockClusterInfo(){}
 
 var clusterInfo = new MockClusterInfo();
 
-var service;
-
-var config = {
-  happn:{
-    secure:true,
-    adminPassword:'happnerclusterdemo',
+module.exports = {
+  name: 'happnerclusterdemo',
+  happn: {
+    port: parseInt(process.env.MASTER_PORT),
+    persist: true,
+    secure: true,
+    adminPassword: process.env.ADMIN_PASSWORD,
+    log_level: 'info|error|warning',
+    filename: __dirname + '/db/happner-angular.nedb',
     middleware: {
       security: {
         exclusions: [
@@ -65,14 +70,3 @@ var config = {
     }
   }
 };
-
-Happner.create(config)
-
-  .then(function(serviceInstance){
-    service = serviceInstance;
-    console.log('service started...');
-  })
-  .catch(function(e){
-    console.log('failed to start service...', e.toString());
-    process.exit(1);
-  });

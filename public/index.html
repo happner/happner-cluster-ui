@@ -3,6 +3,16 @@
 
 <head>
     <title>Happner Angular </title>
+
+    <link rel="stylesheet" href="/system-components/angular-awesome-slider/dist/css/angular-awesome-slider.min.css">
+
+    <link rel="stylesheet" href="/system-resources/css/treeview.css">
+    <link rel="stylesheet" href="/system-resources/css/abn_tree.css">
+    <link rel="stylesheet" href="/system-resources/css/jsplumb.css">
+    <link rel="stylesheet" href="/system-resources/css/glyphicons.css">
+
+    <link rel="stylesheet" href="/system-resources/css/assemblyline.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Fonts -->
@@ -11,7 +21,11 @@
 
     <!-- CSS Libs -->
     <link rel="stylesheet" href="system-resources/css/glyphicons.css">
+
     <link rel="stylesheet" type="text/css" href="/system-components/bootstrap/dist/css/bootstrap.min.css">
+    <!--
+    <link rel="stylesheet" type="text/css" href="/system-components/bootstrap/dist/css/bootstrap-theme.min.css">
+    -->
     <link rel="stylesheet" type="text/css" href="/system-components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/system-components/animate.css/animate.min.css">
     <link rel="stylesheet" type="text/css"
@@ -21,9 +35,14 @@
     <link rel="stylesheet" type="text/css" href="/system-components/datatables/media/css/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/system-components/select2/select2.css">
 
+    <link rel="stylesheet" href="/system-components/angular-hotkeys/build/hotkeys.min.css">
+
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" href="system-resources/css/style.css">
+
     <link rel="stylesheet" type="text/css" href="system-resources/css/themes/flat-gray.css">
+
+
 
 </head>
 
@@ -91,6 +110,7 @@
 
 <!-- Javascript Libs -->
 <script type="text/javascript" src="/system-components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/system-resources/js/jquery-migrate.js"></script>
 <script type="text/javascript" src="/system-components/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/system-components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/system-components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
@@ -104,9 +124,16 @@
 <!-- Happner API -->
 <script type="text/javascript" src="/api/client"></script>
 
-<!-- Angular -->
+<!-- angular -->
+
+<!-- angular shared -->
 
 <script src="/system-components/angular/angular.js"></script>
+
+<script src="/system-components/angular-hotkeys/build/hotkeys.min.js"></script>
+
+<script type='text/javascript' src='/system-components/angular-awesome-slider/dist/angular-awesome-slider.min.js'></script>
+
 <script src="/system-components/angular-sanitize/angular-sanitize.min.js"></script>
 <script src="/system-components/angular-animate/angular-animate.min.js"></script>
 <script src="/system-components/angular-route/angular-route.min.js"></script>
@@ -120,29 +147,50 @@
 <script src="/system-components/ng-tv4/ng-tv4.js"></script>
 <script src="/system-components/ng-pluralize-filter/ng-pluralize-filter.js"></script>
 
-<!--<script src="/system/directives/ngDragDrop.js"></script>-->
+<!-- angular system -->
+
+<script src="/app.js"></script>
+
+<script src="/system/filters/system-filters.js"></script>
 
 <script src="/system/directives/ngScrollTop.js"></script>
+
+<script src="/system/directives/draganddrop.js"></script>
+
+<script src="/system/directives/treeview.js"></script>
 
 <script src="/system/services/happner-angular.js"></script>
 
 <script src="/system/services/happner-services.js"></script>
 
-
 <script src="/system/controllers/happner-controllers.js"></script>
-
-<script src="/cluster/controllers/peers-controllers.js"></script>
 
 <script src="/system/controllers/dashboard-controllers.js"></script>
 
 <script src="/system/controllers/sidebar-controllers.js"></script>
 
-<script src="/app.js"></script>
+<!-- angular cluster -->
 
-<!-- JQuery/Javascript -->
+<script src="/cluster/controllers/peers-controllers.js"></script>
 
-<!-- <script type="text/javascript" src="/js/app.js"></script> -->
-<!-- <script type="text/javascript" src="/js/index.js"></script> -->
+<!-- angular assemblyline -->
+
+<script src="/assemblyline/directives/client-scripts.js"></script>
+<script src="/assemblyline/directives/ui-ace.js"></script>
+<script src="/assemblyline/directives/ui-jsplumb.js"></script>
+
+<script src="/assemblyline/controllers/system-controllers.js"></script>
+<script src="/assemblyline/controllers/blueprint-controllers.js"></script>
+<script src="/assemblyline/controllers/control-controllers.js"></script>
+<script src="/assemblyline/controllers/directive-controllers.js"></script>
+<script src="/assemblyline/controllers/droid-controllers.js"></script>
+<script src="/assemblyline/controllers/flow-controllers.js"></script>
+<script src="/assemblyline/controllers/icon-controllers.js"></script>
+<script src="/assemblyline/controllers/process-controllers.js"></script>
+<script src="/assemblyline/controllers/project-controllers.js"></script>
+<script src="/assemblyline/controllers/step-controllers.js"></script>
+
+
 </body>
 
 </html>

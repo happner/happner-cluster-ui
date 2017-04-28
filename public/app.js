@@ -6,7 +6,7 @@ var happnerApp = angular.module('happnerApp', [
   'ngRoute',
   'ngSanitize',
   'ngAnimate',
-  //'ngDragDrop',
+  'ngDragDrop',
   'ngScrollTop',
   'ui.bootstrap',
   'rt.select2',
@@ -14,12 +14,45 @@ var happnerApp = angular.module('happnerApp', [
   'angular-json-editor',
   'happnerServices',
   'happnerControllers',
+  'angularBootstrapNavTree',
+  'ideFilters',
+  'ui.ace',
+  'ui.jsPlumb',
   'angularMoment',
   'luegg.directives',
   'ng.tv4',
   'anguFixedHeaderTable',
   'ngPluralizeFilter'
 ]);
+
+happnerApp.directive('dynamic', function ($compile) {
+  return {
+    restrict: 'A',
+    replace: true,
+    link: function (scope, ele, attrs) {
+      scope.$watch(attrs.dynamic, function(html) {
+        ele.html(html);
+        $compile(ele.contents())(scope);
+      });
+    }
+  };
+});
+
+happnerApp.directive ('compileHtml', function($compile) {
+return  {
+  restrict: 'A',
+  scope: { compileHtml : '=' },
+  replace: true,
+  link: function (scope, element, attrs) {
+    console.log(element);
+    console.log(element);
+
+    scope.$watch('compileHtml', function(html) {
+      element.html(html);
+      $compile(element.contents())(scope.$parent.$parent);
+    });
+  }
+}});
 
 happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvider) {
 
@@ -94,25 +127,6 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
     .when('/assemblyline/edit/:id', {
       templateUrl : './assemblyline/templates/assemblyline_edit.html'
     })
-
-    /*
-     <li><a href="/warehouse/edit/new">new warehouse</a>
-     </li>
-     <li><a href="/warehouse/search">search warehouses</a>
-     </li>
-     <li><a href="/warehouse/schema/edit/new">new schema</a>
-     </li>
-     <li><a href="/warehouse/schema/search">search schemas</a>
-     </li>
-     <li><a href="/warehouse/object/edit/new">new object</a>
-     </li>
-     <li><a href="/warehouse/object/search">search objects</a>
-     </li>
-     <li><a href="/warehouse/report/edit/new">new report</a>
-     </li>
-     <li><a href="/warehouse/report/search">search reports</a>
-     </li>
-     */
 
     .when('/warehouse/search', {
       templateUrl : './warehouse/templates/warehouse_search.html'
@@ -215,7 +229,21 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
     enabled: true,
     requireBase: false
   });
+});
 
+happnerApp.factory('AppSession', function($rootScope) {
+  return {
+    //currently what path are we editing
+    currentPath: '',
+    //data that is being currently edited, keyed by the path of the item
+    dirty:{},
+    //used rootscope to push an event throughout the app
+    broadcastEvent: function(event, args) {
+      $rootScope.$broadcast(event, args);
+    },
+    defaultDirectiveCode:'LyoNCg0KVGhlIHByb2Mgb2JqZWN0IGdpdmVzIHlvdSBhY2Nlc3MgdG8gc3lzdGVtIGhlbHBlciBmdW5jdGlvbnMuDQpUaGUgcGFyYW1zIGFyZSB0aGUgcGFyYW1ldGVycyBwYXNzZWQgaW50byB0aGlzIG9wZXJhdGlvblQNClRoZSBsaW5lIGlzIHRoZSByYXcgbGluZSB0byBiZSBwcm9jZXNzZWQNCkFmdGVyIHRoZSBsaW5lIGhhcyBiZWVuIHRyYW5zZm9ybWVkIG9yIGNoZWNrZWQsIHRoZSBjYWxsYmFjayBpcyBpbnZva2VkIHRvIHBhc3MgdGhlIGxpbmUgYWxvbmcgdGhlIHByb2Nlc3MNCiovDQoNCmZ1bmN0aW9uIHBlcmZvcm0ocHJvYywgcGFyYW1zLCBsaW5lLCBjYWxsYmFjayl7DQogICAgDQogICAgY2FsbGJhY2soJ09LJywgbGluZSk7DQp9',
+    defaultControlCode:'PCEtLSBUaGlzIGlzIHRoZSBzb3VyY2UgZm9yIHlvdXIgY29udHJvbHMsIGFzIHlvdSBjYW4gc2VlIHdlIGFyZSB1c2luZyBuZy1tb2RlbCB0byBsaW5rIHRoZSB1c2VyIGlucHV0IHRvIHRoZSBhY3R1YWwgcGFyYW1ldGVycyB1c2VkIGZvciB0aGUgb3JjaGVzdHJhdGlvbiAtLT4NCg0KPGZvcm0gY2xhc3M9ImZvcm0taG9yaXpvbnRhbCIgcm9sZT0iZm9ybSI+DQogIDxkaXYgY2xhc3M9ImZvcm0tZ3JvdXAiPg0KICAgPGxhYmVsIGZvcj0iY29udHJvbFBhcmFtMSIgY2xhc3M9ImNvbC1zbS0yIGNvbnRyb2wtbGFiZWwiPlBhcmFtZXRlciAxPC9sYWJlbD4NCiAgIDxkaXYgY2xhc3M9ImNvbC1zbS0xMCI+DQogICAgICA8aW5wdXQgY2xhc3M9ImZvcm0tY29udHJvbCIgaWQ9ImNvbnRyb2xQYXJhbTEiIHBsYWNlaG9sZGVyPSJOYW1lIiBuZy1tb2RlbD0icGFyYW1zLlBhcmFtMSI+PC9pbnB1dD4NCiAgICA8L2Rpdj4NCiAgPC9kaXY+DQogICA8ZGl2IGNsYXNzPSJmb3JtLWdyb3VwIj4NCiAgIDxsYWJlbCBmb3I9ImNvbnRyb2xQYXJhbTIiIGNsYXNzPSJjb2wtc20tMiBjb250cm9sLWxhYmVsIj5QYXJhbWV0ZXIgMjwvbGFiZWw+DQogICA8ZGl2IGNsYXNzPSJjb2wtc20tMTAiPg0KICAgICAgPGlucHV0IGNsYXNzPSJmb3JtLWNvbnRyb2wiIGlkPSJjb250cm9sUGFyYW0yIiBwbGFjZWhvbGRlcj0iTmFtZSIgbmctbW9kZWw9InBhcmFtcy5QYXJhbTIiPjwvaW5wdXQ+DQogICAgPC9kaXY+DQogIDwvZGl2Pg0KIDwvZm9ybT4='
+  };
 });
 
 happnerApp.run(function($rootScope) {
@@ -223,4 +251,5 @@ happnerApp.run(function($rootScope) {
     console.log('route changing:::', event);
   });
 });
+
 

@@ -1,0 +1,42 @@
+<div class="side-body padding-top" ng-show="loggedIn" ng-controller="DataSchemaEditController">
+    <div class="row actionbar-affix">
+        <div class="col-lg-12">
+            <div class="card gray">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="title" uib-tooltip="{{currentSchemaId}}" tooltip-placement="right"
+                             tooltip-class="tooltip-custom">Schema: {{currentSchemaId == undefined ? '(new)' :
+                            currentSchemaName?currentSchemaName:currentSchemaId}}
+                        </div>
+                    </div>
+                    <div class="card-body  pull-right">
+                        <a class="btn btn-primary pull-right" style="margin-left:2px"
+                           ng-click="menuClicked('schema-list')">list schemas</a>
+                        <a class="btn btn-primary" style="margin-left:2px" ng-click="previewSchema()">Preview</a>
+                        <a class="btn btn-primary" style="margin-left:2px" ng-click="saveSchema()">Save schema</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row bump-down">
+        <div class="col-lg-1"> </div>
+        <div ng-model="schemaJSON" class="col-lg-10" style="height:600px;margin:15px;border:1px solid #CCC" ui-ace="{
+         useWrapMode : true,
+         showGutter: true,
+         theme:'eclipse',
+         mode: 'json',
+         onLoad: aceLoaded,
+         onChange: aceChanged
+         }">
+        </div>
+        <div class="col-lg-1"> </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"> </div>
+        <div class="col-lg-10" id="editor_holder">
+        </div>
+        <div class="col-lg-1"> </div>
+    </div>
+</div>

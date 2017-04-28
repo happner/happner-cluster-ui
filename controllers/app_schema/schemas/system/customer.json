@@ -1,0 +1,32 @@
+{
+  "schema": "Customer",
+  "filters": [
+    "name",
+    "number",
+    "created",
+    "modified"
+  ],
+  "list_fields": [
+    "name",
+    "number",
+    "created",
+    "modified"
+  ],
+  "list_order_by":[
+    "name"
+  ],
+  "non_editable_fields": [
+    "created",
+    "modified"
+  ],
+  "non_updatable_fields": [],
+  "sidebar": {
+    "display": true,
+    "group": "Customers"
+  },
+  "allow_create": true,
+  "allow_delete": true,
+  "allow_update": true,
+  "allow_search": true,
+  "icon":"user"
+}

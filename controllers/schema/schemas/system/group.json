@@ -1,0 +1,54 @@
+{
+  "title":"Group",
+  "properties":{
+    "name":{
+      "type":"string",
+      "required":true
+    },
+    "description":{
+      "type":"string",
+      "required":true
+    },
+    "permissions":{
+      "type":"array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "title": "Permission",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "actions": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "on",
+                "get",
+                "set",
+                "remove",
+                "*"
+              ]
+            },
+            "required": true
+          },
+          "description":{
+            "type": "string"
+          }
+        }
+      }
+    },
+    "created":{
+      "type":"string",
+      "format":"datetime-local",
+      "readOnly":true
+    },
+    "modified":{
+      "type":"string",
+      "format":"datetime-local",
+      "readOnly":true
+    }
+  }
+}

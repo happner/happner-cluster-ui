@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "happner-angular",
+      "script": "server.js",
+      "env": {
+        "NODE_ENV": "development",
+        "ADMIN_PWD": "happner-angular",
+        "PORT": 55555
+      }
+    }
+  ]
+}

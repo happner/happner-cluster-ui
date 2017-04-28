@@ -1,0 +1,69 @@
+{
+  "title":"app_schema",
+  "type":"object",
+  "properties":{
+    "schema":{
+      "type":"string"
+    },
+    "filters":{
+      "type":"array",
+      "uniqueItems": true,
+      "format":"table",
+      "items":{
+        "type":"string"
+      },
+      "default":["name", "created", "modified"]
+    },
+    "list_fields":{
+      "type":"array",
+      "uniqueItems": true,
+      "format":"table",
+      "items":{
+        "type":"string"
+      }
+    },
+    "non_editable_fields":{
+      "type":"array",
+      "uniqueItems": true,
+      "format":"table",
+      "items":{
+        "type":"string"
+      },
+      "default":["created", "modified"]
+    },
+    "sidebar":{
+      "type":"object",
+      "properties":{
+        "display":{
+          "type":"boolean",
+          "default":false
+        },
+        "group":{
+          "type":"string",
+          "default":"self"
+        }
+      }
+    },
+    "allow_create":{
+      "type":"boolean",
+      "default":true
+    },
+    "allow_delete":{
+      "type":"boolean",
+      "default":true
+    },
+    "allow_update":{
+      "type":"boolean",
+      "default":true
+    },
+    "allow_search":{
+      "type":"boolean",
+      "default":true
+    },
+    "icon":{
+      "type":"string",
+      "default":"cube"
+    }
+  }
+}
+

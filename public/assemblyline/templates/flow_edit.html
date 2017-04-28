@@ -1,0 +1,81 @@
+<div ng-controller="flow_edit" class="panel panel-default">
+    <div class="panel-heading">Edit flow {{flow.name}}</div>
+    <div class="panel-body">
+        <form class="form-horizontal" role="form">
+            <div ng-show="collapsed" class="form-group">
+                <label for="flowName" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="flowName" placeholder="Name" ng-model="flow.name"></input>
+                </div>
+            </div>
+            <div ng-show="collapsed" class="form-group">
+                <label for="flowDescription" class="col-sm-2 control-label">Description</label>
+                <div class="col-sm-10">
+                    <textarea id="flowDescription" class="form-control" rows="3" placeholder="Description"
+                              ng-model="flow.description"></textarea>
+                </div>
+            </div>
+            <div ng-show="collapsed" class="form-group">
+                <label for="flowFloorPlan" class="col-sm-2 control-label">Floor plan</label>
+                <div class="col-sm-10">
+                    <textarea id="flowFloorPlan" class="form-control" rows="3"
+                              placeholder="Add a link to an image you want to use as a floorplan"
+                              ng-model="flow.floorPlan"></textarea>
+                </div>
+            </div>
+            <div ng-show="collapsed" class="form-group">
+                <label for="flowFloorPlanOpacity" class="col-sm-2 control-label">Floor opacity</label>
+                <div class="col-sm-10">
+                    <input ng-model="flow.floorPlanOpacity" type="text" id="flowFloorPlanOpacity" slider
+                           options="floorPlan.opacity"/>
+                </div>
+            </div>
+            <div ng-show="collapsed" class="form-group">
+                <label for="flowProject" class="col-sm-2 control-label">Project</label>
+                <div class="col-sm-10">
+                    <select
+                            ng-model="flow.project"
+                            class="form-control"
+                            id="flowProject"
+                            required=true
+                            ng-options="proj._meta.path as proj.name for proj in utils.toArray(data.cache.Projects)">
+                    </select>
+                </div>
+            </div>
+            <div ng-show="collapsed" class="form-group">
+                <label for="flowProject" class="col-sm-2 control-label">Topography</label>
+                <div class="col-sm-10">
+                    <select ng-model="flow.topography">
+                        <option value="map">map</option>
+                        <option value="logical">logical</option>
+                    </select>
+                </div>
+            </div>
+            <div ng-show="collapsed" class="form-group">
+                <label class="col-sm-2 control-label">Icon</label>
+                <div class="col-sm-10">
+                    <span style="font-size:2em"
+                          class="{{flow.icon?flow.icon:'glyphicons glyphicons-flowchart'}}"></span><span
+                        style="padding-top:10px"><a style="cursor:pointer;text-align:bottom" ng-click="selectIcon()">select
+                    an icon</a></span>
+                </div>
+            </div>
+        </form>
+        <div ng-if="flow.topography == 'map'" style="border:1px solid #CCC" class="flowchart-container map drawing"
+             ui-on-Drop="onDrop($event, $data, men)">
+            <js-plumb drawing-data="flow.drawing" drawing-event="drawingEvent" drawing-method="drawingMethod"
+                      on-edit="shapeEdit"></js-plumb>
+            <div style="width:100%;height:100%;background-image:url('{{flow.floorPlan}}');opacity:{{flow.floorPlanOpacity / 10}};background-repeat:no-repeat;background-size: contain;">
+
+            </div>
+        </div>
+        <div ng-if="flow.topography != 'map'" style="border:1px solid #CCC" class="flowchart-container drawing"
+             ui-on-Drop="onDrop($event, $data, men)">
+            <js-plumb drawing-data="flow.drawing" drawing-event="drawingEvent" drawing-method="drawingMethod"
+                      on-edit="shapeEdit"></js-plumb>
+            <div style="width:100%;height:100%;background-image:url('{{flow.floorPlan}}');opacity:{{flow.floorPlanOpacity / 10}};background-repeat:no-repeat;background-size: contain;">
+
+            </div>
+        </div>
+    </div>
+</div>

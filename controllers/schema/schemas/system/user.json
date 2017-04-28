@@ -1,0 +1,39 @@
+{
+  "title":"User",
+  "properties":{
+    "username":{
+      "type":"string",
+      "required":true
+    },
+    "password":{
+      "type":"string",
+      "format":"password"
+    },
+    "publicKey":{
+      "type":"string"
+    },
+    "groups":{
+      "type":"array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "#ref": "Group"
+      }
+    },
+      "created":{
+      "type":"string",
+      "format":"datetime-local",
+      "readOnly":true
+    },
+    "modified":{
+      "type":"string",
+      "format":"datetime-local",
+      "readOnly":true
+    },
+    "status":{
+      "type":"string",
+      "enum":["active","inactive"],
+      "required":true
+    }
+  }
+}

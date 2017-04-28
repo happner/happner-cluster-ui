@@ -45,7 +45,12 @@ see [happner-cluster-demo](https://github.com/happner/happner-cluster-demo)
 ####4.1 Warehouse breakdown:
 #####4.1.1 warehouse - a logical entity that all schemas, objects and reports are grouped under.
 #####4.1.2 schema - a configurable JSON schema
+  - schema items always have name, created and modified properties
+  - the default schemas for the system will be set up from the server-side, all items in the system will be built from schemas and objects, ie: user, group, assemblyline, droid, control
 #####4.1.3 object - a list or single instance of a JSON schema
 #####4.1.4 report - a group of schemas and objects arranged in a report structure, either tabular or with graphs or both.
-
-
+  - reports can be saved as an image
+  - the system dashboard will eventually just be a report
+#####4.1.5 editor - defines how a schema object is listed, added, edited and deleted in the application.
+#####4.1.6 filter - defines a set of criteria ($gt $lt - mongo style) and options (sort | limit etc.)
+  - a default filter exists for all objects that filters by name, created and modified

@@ -1,0 +1,25 @@
+{
+  "schema": "schema",
+  "filters": [
+    "name"
+  ],
+  "list_fields": [
+    "name",
+    "created",
+    "modified"
+  ],
+  "non_editable_fields": [
+    "created",
+    "modified"
+  ],
+  "sidebar": {
+    "display": true,
+    "group": "Data"
+  },
+  "allow_create": true,
+  "allow_delete": true,
+  "allow_update": true,
+  "allow_search": true,
+  "icon": "cube",
+  "id_field":"name"
+}
