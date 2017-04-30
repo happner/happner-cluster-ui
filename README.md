@@ -5,6 +5,7 @@ happner cluster demo ui
 see [happner-cluster-demo](https://github.com/happner/happner-cluster-demo)
 
 ##happner-cluster application suite
+*the whole shebang*
 
 ###5 UI areas:
 
@@ -14,9 +15,9 @@ see [happner-cluster-demo](https://github.com/happner/happner-cluster-demo)
 
 3. Assemblyline - how assembly lines, droids and blueprints are managed.
 
-4. Organisation - how organisations, users and groups are managed.
+4. Organisation - the security layer, how organisations, users, groups and permissions are managed.
 
-5. Warehouse - where data templates as JSON schemas are managed, and where reporting happens.
+5. Warehouse - the database and reporting area, where data templates as JSON schemas, views and reports are managed.
 
 ####1.1 System breakdown:
 *System contains all the sidebar and shared stuff*
@@ -46,11 +47,22 @@ see [happner-cluster-demo](https://github.com/happner/happner-cluster-demo)
 #####4.1.1 warehouse - a logical entity that all schemas, objects and reports are grouped under.
 #####4.1.2 schema - a configurable JSON schema
   - schema items always have name, created and modified properties
-  - the default schemas for the system will be set up from the server-side, all items in the system will be built from schemas and objects, ie: user, group, assemblyline, droid, control
-#####4.1.3 object - a list or single instance of a JSON schema
-#####4.1.4 report - a group of schemas and objects arranged in a report structure, either tabular or with graphs or both.
+  - the default schemas for the system will be set up from the server-side, all items in the system will be built from schemas and objects, ie: user, group, assemblyline, droid, control.
+#####4.1.3 filter - linked to a schema, defines a set of criteria ($gt $lt - mongo style) and options (sort | limit etc.) - also has directives for aggregating data $group
+  - a default filter exists for all objects that filters by name, created, modified, createdBy, modifiedBy
+  - the default filter has a standard set of default options, so that it immmediately lists a resultset
+  - the default options lists the latest 20 items created by "me" sorted by the name ascending.
+#####4.1.4 view - linked to a schema
+  - view says whether the the schema can be edited, deleted or listed
+  - declares what filters can be used for listing if it is allowed
+  - multiple views can exist for a single schema
+  - able to specify the view is something that is lited in the sidebar
+  - permissions are assigned to a view.
+#####4.1.5 object - a list or single instance of a JSON schema
+  - objects are essentially the resultsets of a view
+#####4.1.6 report - a group of views arranged in a report structure, either tabular or with graphs or both.
+  - report base page is a grid, views are dragged and dropped on to the report page.
+  - when a view is dropped, the views filters appear on the top of the report page.
+  - the view is then configured to display its result set in tabular or chart form.
   - reports can be saved as an image
-  - the system dashboard will eventually just be a report
-#####4.1.5 editor - defines how a schema object is listed, added, edited and deleted in the application.
-#####4.1.6 filter - defines a set of criteria ($gt $lt - mongo style) and options (sort | limit etc.)
-  - a default filter exists for all objects that filters by name, created and modified
+  - the system dashboard will eventually just be a report.
