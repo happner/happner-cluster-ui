@@ -260,6 +260,9 @@ happnerApp.factory('AppSession', function($rootScope) {
   return {
     //currently what path are we editing
     currentPath: '',
+    currentLocation:{
+      history:[]
+    },
     //data that is being currently edited, keyed by the path of the item
     dirty:{},
     //used rootscope to push an event throughout the app
@@ -272,9 +275,7 @@ happnerApp.factory('AppSession', function($rootScope) {
 });
 
 happnerApp.run(function($rootScope) {
-  $rootScope.$on("$locationChangeStart", function(event, next, current) {
-    console.log('route changing:::', event);
-  });
+
 });
 
 

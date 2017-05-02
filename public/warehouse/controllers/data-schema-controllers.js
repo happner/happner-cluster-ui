@@ -352,6 +352,17 @@ happnerApp.controller('DataSchemaEditController', ['$scope', '$rootScope', '$com
 
         $scope.previewSchema();
 
+        $rootScope.$on('actionClicked', function(action){
+          console.log('actionClicked:::', action);
+        });
+
+        $rootScope.registerActions([
+          {label:'search', icon:'search'},
+          {label:'preview', icon:'eye'},
+          {label:'save', icon:'save'},
+          {label:'delete', icon:'remove'}
+        ]);
+
       }, function (err) {
 
         return $rootScope.notify('unable to build schema editor', 'danger');

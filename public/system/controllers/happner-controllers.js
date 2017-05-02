@@ -188,3 +188,55 @@ happnerControllers.controller('SessionController', ['$scope', 'dataService', '$r
   }
 
 }]);
+
+happnerControllers.controller('BreadCrumbController', ['$scope', 'dataService', '$rootScope', '$location', '$uibModal', function ($scope, dataService, $rootScope, $location, $uibModal) {
+
+  $scope.breadcrumbs = [];
+
+  $rootScope.$on("$locationChangeStart", function(event, next, current) {
+
+    $scope.breadcrumbs = [];
+
+    try{
+
+      var nextParts = next.replace('http://', '').replace('https://', '').split('/');
+
+      $scope.breadcrumbs.push({label:nextParts[1].toLowerCase(), url:'/' + nextParts[1]}); //area
+
+      $scope.breadcrumbs.push({label:nextParts[2].toLowerCase(), url:[nextParts[1], nextParts[2],'search'].join('/')}); //type
+
+      if (nextParts[3] && nextParts[4]) $scope.breadcrumbs.push({label:nextParts[4].toLowerCase(), url:next}); //area
+
+    }catch(e){
+      //do nothing
+    }
+
+    $rootScope.safeApply();
+  });
+}]);
+
+happnerControllers.controller('ActionsController', ['$scope', 'dataService', '$rootScope', '$location', '$uibModal', function ($scope, dataService, $rootScope, $location, $uibModal) {
+
+  $scope.actions = [];
+
+  $rootScope.registerActions = function(actions) {
+
+    $scope.actions = [];
+
+    actions.forEach(function(action){
+      $scope.actions.push(action);
+    });
+
+    $rootScope.safeApply();
+
+    $rootScope.$emit('registerActions', actions);
+  };
+
+  $rootScope.actionClicked = function(action){
+    $rootScope.$emit('actionClicked', action);
+  };
+
+}]);
+
+//ActionsController
+

@@ -1,0 +1,5 @@
+<ol class="breadcrumb navbar-breadcrumb" ng-controller="BreadCrumbController" style="padding-left:30px;font-size:10px">
+  <li ng-repeat="breadcrumbItem in breadcrumbs">
+    <span class="fa fa-angle-right" style="padding-right:10px"></span><a href="{{breadcrumbItem.url}}">{{breadcrumbItem.label}}</a>
+  </li>
+</ol>

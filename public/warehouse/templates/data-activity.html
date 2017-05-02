@@ -1,0 +1,17 @@
+<div class="card-header">
+  <div class="card-title">
+    <div class="title"><i class="fa fa-alert"></i> recent activity</div>
+  </div>
+  <div class="clear-both"></div>
+</div>
+<div class="card-body no-padding">
+  <ul class="message-list">
+    <li ng-repeat="change in changes">
+      <span class="profile-img pull-left fa fa-{{change.icon}}" style="font-size:32px"></span>
+      <div class="message-block">
+        <div class="message">{{change.type}}</div>
+        <span class="message-datetime" am-time-ago="change._meta.modified"></span>
+      </div>
+    </li>
+  </ul>
+</div>
