@@ -1,7 +1,4 @@
-<nav class="navbar navbar-default" ng-controller="ActionsController">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav">
-      <li ng-repeat="action in actions"><span class="fa fa-{{action.icon}}" ng-click="actionClicked(action)"></span></li>
-    </ul>
-  </div>
-</nav>
+<ul class="nav navbar-nav" ng-controller="ActionsController" style="font-size:18px;border-bottom-right-radius:5px;border-bottom-left-radius:5px;background-color:#CFD8DC;padding-left:10px">
+  <li ng-repeat="action in actions"><span class="fa fa-{{action.icon}}" ng-click="actionClicked(action)" style="padding-right:10px; left:10px"></span></li>
+</ul>
+

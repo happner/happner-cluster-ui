@@ -236,6 +236,10 @@ happnerControllers.controller('ActionsController', ['$scope', 'dataService', '$r
     $rootScope.$emit('actionClicked', action);
   };
 
+  $rootScope.$emit('actionsReady');
+
+  console.log('SET UP ROOTSCOPE:::');
+
 }]);
 
 //ActionsController

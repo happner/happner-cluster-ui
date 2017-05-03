@@ -10,7 +10,7 @@
         <div class="col-lg-2 col-md-2 col-sm-2">
             <div class="sidebar-nav-fixed affix" style="width:220px;z-index:1000">
 
-                <div class="card card-gray" ng-include src="'/system/templates/actions.html'">
+                <div ng-include src="'/system/templates/actions.html'">
                   <!--
                     <div class="card-header">
                         <div class="card-title">
@@ -36,27 +36,27 @@
                     </div>
                     -->
                 </div>
-                <div class="card card-gray" ng-include src="'/warehouse/templates/data-activity.html'">
-                  <!--
-                    <div class="card-header">
-                        <div class="card-title">
-                            <div class="title"><i class="fa fa-alert"></i> recent activity</div>
-                        </div>
-                        <div class="clear-both"></div>
-                    </div>
-                    <div class="card-body no-padding">
-                        <ul class="message-list">
-                            <li ng-repeat="change in changes">
-                                <span class="profile-img pull-left fa fa-{{change.icon}}" style="font-size:32px"></span>
-                                <div class="message-block">
-                                    <div class="message">{{change.type}}</div>
-                                    <span class="message-datetime" am-time-ago="change._meta.modified"></span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    -->
-                </div>
+              <!--    <div class="card card-gray" ng-include src="'/warehouse/templates/data-activity.html'">
+
+           <div class="card-header">
+               <div class="card-title">
+                   <div class="title"><i class="fa fa-alert"></i> recent activity</div>
+               </div>
+               <div class="clear-both"></div>
+           </div>
+           <div class="card-body no-padding">
+               <ul class="message-list">
+                   <li ng-repeat="change in changes">
+                       <span class="profile-img pull-left fa fa-{{change.icon}}" style="font-size:32px"></span>
+                       <div class="message-block">
+                           <div class="message">{{change.type}}</div>
+                           <span class="message-datetime" am-time-ago="change._meta.modified"></span>
+                       </div>
+                   </li>
+               </ul>
+           </div>
+
+                </div> -->
             </div>
         </div>
     </div>

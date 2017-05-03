@@ -224,7 +224,8 @@ happnerApp.controller('DataSchemaEditController', ['$scope', '$rootScope', '$com
       $scope.jsoneditor.setValue({});
 
       $scope.previewOpen = true;
-      $scope.$apply();
+
+      $rootScope.safeApply();
     };
 
     loadData();
@@ -352,16 +353,21 @@ happnerApp.controller('DataSchemaEditController', ['$scope', '$rootScope', '$com
 
         $scope.previewSchema();
 
-        $rootScope.$on('actionClicked', function(action){
-          console.log('actionClicked:::', action);
+        $rootScope.$on('actionClicked', function(event, action){
+          console.log('actionClicked:::', event, action);
         });
 
-        $rootScope.registerActions([
-          {label:'search', icon:'search'},
-          {label:'preview', icon:'eye'},
-          {label:'save', icon:'save'},
-          {label:'delete', icon:'remove'}
-        ]);
+        $rootScope.$on('actionsReady', function(){
+
+          console.log('actions ready:::');
+
+          $rootScope.registerActions([
+            {label:'search', icon:'search'},
+            {label:'preview', icon:'eye'},
+            {label:'save', icon:'save'},
+            {label:'delete', icon:'remove'}
+          ]);
+        });
 
       }, function (err) {
 
@@ -383,7 +389,7 @@ happnerApp.controller('DataSchemaEditController', ['$scope', '$rootScope', '$com
         $scope.currentSchemaId = data._meta.path.split('/').slice(-1)[0];
 
         $rootScope.notify('schema saved (ID: ' + $scope.currentSchemaId + ')', 'success', 2000);
-        $rootScope.$apply();
+        $rootScope.safeApply();
       };
 
       dataService.get(path, function(e, previous){
@@ -468,7 +474,7 @@ happnerApp.controller('DataSchemaSearchController', ['$scope', '$rootScope', '$w
           $scope.data.rows.push(dataRow);
         });
 
-        $scope.$apply();
+        $rootScope.safeApply();
       });
     };
 
