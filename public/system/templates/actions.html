@@ -1,4 +1,12 @@
-<ul class="nav navbar-nav" ng-controller="ActionsController" style="font-size:18px;border-bottom-right-radius:5px;border-bottom-left-radius:5px;background-color:#CFD8DC;padding-left:10px">
-  <li ng-repeat="action in actions"><span class="fa fa-{{action.icon}}" ng-click="actionClicked(action)" style="padding-right:10px; left:10px"></span></li>
+<ul class="nav navbar-nav" ng-controller="ActionsController"
+    style="font-size:18px;
+           border-bottom-left-radius:5px;
+           background-color:#CFD8DC;
+           padding-left:10px;
+           top:61px;
+           right:0px;
+           position:fixed;
+           z-index:1000">
+  <li ng-repeat="action in actions"><span class="fa fa-{{action.icon}}" ng-click="actionClicked(action)" style="padding-right:10px; left:10px; cursor:pointer"></span></li>
 </ul>
 

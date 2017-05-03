@@ -1,69 +1,20 @@
 <div class="side-body padding-top" ng-show="loggedIn" ng-controller="DataSchemaEditController">
+    <div ng-include src="'/system/templates/actions.html'" ng-init="editController='Edit'"></div>
     <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-8">
+        <a id="editor_row" />
+        <div class="col-lg-12 col-md-12 col-sm-12">
             <div ng-model="schemaJSON" style="height:600px;margin:15px;border:1px solid #CCC"
                  ui-ace="{
                  useWrapMode : true,
                  showGutter: true, theme:'eclipse', mode: 'json', onLoad: aceLoaded, onChange: aceChanged}">
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-2">
-            <div class="sidebar-nav-fixed affix" style="width:220px;z-index:1000">
-
-                <div ng-include src="'/system/templates/actions.html'">
-                  <!--
-                    <div class="card-header">
-                        <div class="card-title">
-                            <div class="title"><i class="fa fa-edit"></i> actions</div>
-                        </div>
-                        <div class="clear-both"></div>
-                    </div>
-                    <div class="card-body no-padding">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li>
-                                <a href="/#/schema/search" class="btn btn-primary"><span class="fa fa-search"></span> search</a>
-                            </li>
-                            <li>
-                                <a class="btn btn-success" ng-click="previewSchema()"><span class="fa fa-eye"></span> refresh preview</a>
-                            </li>
-                            <li>
-                                <a class="btn btn-success" ng-click="saveData()"><span class="fa fa-save"></span> save</a>
-                            </li>
-                            <li>
-                                <a class="btn btn-danger" ng-click="deleteData()"><span class="fa fa-remove"></span> delete</a>
-                            </li>
-                        </ul>
-                    </div>
-                    -->
-                </div>
-              <!--    <div class="card card-gray" ng-include src="'/warehouse/templates/data-activity.html'">
-
-           <div class="card-header">
-               <div class="card-title">
-                   <div class="title"><i class="fa fa-alert"></i> recent activity</div>
-               </div>
-               <div class="clear-both"></div>
-           </div>
-           <div class="card-body no-padding">
-               <ul class="message-list">
-                   <li ng-repeat="change in changes">
-                       <span class="profile-img pull-left fa fa-{{change.icon}}" style="font-size:32px"></span>
-                       <div class="message-block">
-                           <div class="message">{{change.type}}</div>
-                           <span class="message-datetime" am-time-ago="change._meta.modified"></span>
-                       </div>
-                   </li>
-               </ul>
-           </div>
-
-                </div> -->
-            </div>
-        </div>
     </div>
     <div class="row">
+      <a id="preview_row" />
       <div class="col-lg-12 col-md-12 col-sm-12" id="editor_holder">
         <div class="card-body" id="editor-container">
         </div>
       </div>
-  </div>
+    </div>
 </div>

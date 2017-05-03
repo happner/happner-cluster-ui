@@ -7,6 +7,13 @@ see [happner-cluster-demo](https://github.com/happner/happner-cluster-demo)
 ##happner-cluster application suite
 *the whole shebang*
 
+###how to run it:
+```bash
+npm install
+bower install
+node server/start
+```
+
 ###5 UI areas:
 
 *The base layer is the system, it is shared by all layers, the first layer after the system, is the organisation layer - it holds the organisations, users and groups that define permission sets for all the operations made in the system. The warehouse is how all objects are persisted, listed and in combination with the organisation layer, how operations changing the objects are permissioned in the system. The cluster is the area controlling the actual system processes, and also provides the sites where assembly lines can be deployed to. The assembly line is where flow driven processes and their steps can be designed, the system will have a bunch of flows it will use internally for all of its operations.*
@@ -19,7 +26,7 @@ see [happner-cluster-demo](https://github.com/happner/happner-cluster-demo)
 
 4. Cluster - the cluster control user interface, for managing the cluster which will run jobs.
 
-5. Assemblyline - how assembly lines, droids and blueprints are managed.
+5. Assemblyline - basically a service bus, how assembly lines, droids and blueprints are managed.
 
 ####1.1 System breakdown:
 *System contains all the sidebar and shared stuff*
@@ -32,15 +39,14 @@ see [happner-cluster-demo](https://github.com/happner/happner-cluster-demo)
 
 ####3.1 Warehouse breakdown:
 *the warehouse is how data is arranged, viewed and permissioned in the system. all data is modified by operations which are pushed through the system via happn using paths that encompass the organisation id, the id if the view associated with the data and the operation which is either "list","delete","edit" or "view"*
-#####3.1.1 warehouse - a logical entity that all schemas, filters, views, objects and reports are grouped under. Warehouses are grouped under organisations.
-#####3.1.2 schema - a configurable JSON schema
+#####3.1.1 schema - a configurable JSON schema
   - schema items always have name, created and modified properties
   - the default schemas for the system will be set up from the server-side, all items in the system will be built from schemas and objects, ie: user, group, assemblyline, droid, control.
-#####3.1.3 filter - linked to a schema, defines a set of criteria ($gt $lt - mongo style) and options (sort | limit etc.) - also has directives for aggregating data $group - grouped under schema.
+#####3.1.2 filter - linked to a schema, defines a set of criteria ($gt $lt - mongo style) and options (sort | limit etc.) - also has directives for aggregating data $group - grouped under schema.
   - a default filter exists for all objects that filters by name, created, modified, createdBy, modifiedBy
   - the default filter has a standard set of default options, so that it immmediately lists a resultset
   - the default options lists the latest 20 items created by "me" sorted by the name ascending.
-#####3.1.4 view - linked to a schema - grouped under schema.
+#####3.1.3 view - linked to a schema - grouped under schema.
   - view says whether the the schema can be edited, deleted or listed
   - declares what filters can be used for listing if it is allowed
   - multiple views can exist for a single schema
@@ -57,9 +63,9 @@ see [happner-cluster-demo](https://github.com/happner/happner-cluster-demo)
   - or the composite view can be duplicated MATRIX VIEW: rows are duplicated to include values that are products of many-to-any relationships
   - when saving an editable composite view, only the un-calculated fields are editable and saveable
   - GROUPS are assigned permissions to views by the view name and the view mode, ie. full permissions to the USER object would be a group that has set rights to /[organisation id]/_OPERATIONS/USER/[edit || view || delete || list]
-#####3.1.5 object - a list or single instance of a JSON schema, instance based thing, so kind of grouped under view.
+#####3.1.4 object - a list or single instance of a JSON schema, instance based thing, so kind of grouped under view.
   - objects are essentially the resultsets of a view
-#####3.1.6 report - a group of views arranged in a report structure, either tabular or with graphs or both. Reports are grouped under a warehouse.
+#####3.1.5 report - a group of views arranged in a report structure, either tabular or with graphs or both. Reports are grouped under a warehouse.
   - report base page is a grid, views are dragged and dropped on to the report page.
   - when a view is dropped, the views filters appear on the top of the report page.
   - the view is then configured to display its result set in tabular or chart form.
@@ -83,3 +89,13 @@ see [happner-cluster-demo](https://github.com/happner/happner-cluster-demo)
 #####5.1.6 directive - back-end code that the droid uses to perform its mandate
 #####5.1.7 component - in the back-end, actually just a node dependency, injected into the directive's $assemblyline.components object.
 #####5.1.8 system droids - the system will come with some predefined droids, such as a Scheduler (starts a flow at a scheduled time) , Valve (all, one at a time, first, last, all), Event (starts a flow based on a system event), Data Mapper (maps one data object into another, takes input and output schemas), Script (runs a piece of javascript), Power Switch (stop, pause, start) , Log (writes to the flow log), Personnel (puts flow into the hands of a user or group), Notify (email, SMS, twitter)
+
+##Data layout
+- The data is laid out according to an organisational structure
+- all data items belong to an organisation, all organisations apart from the primary organisation have a parent as well. 
+- If a group has a permission set in an organisation, it will by default have the same permissions for all organisations that are descendants of the organisation. 
+  - this is done every time a permission is saved for the group, the ui allows for the appending of the permission down the organisation tree 
+- All sessions are run from an organisation, the user logs in and then selects which organisation they want to work in.
+- Users and groups are created, and mapped to the organisation they were created in.
+- All objects exist under an organisation, so if a user is created in Organisation A, the user data is stored under /happner/_data/[Organisation A id]/User/[user id]
+- If user A logs in and works under Organisation B, and saves a new AssemblyLine object, the object is stored under the path /happner/_data/[Organisation B id]/AssemblyLine/[assemblyline id]

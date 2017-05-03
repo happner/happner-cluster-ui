@@ -1,6 +1,15 @@
 
-happnerApp.controller('DataSchemaEditController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'tv4', '$routeParams',
-  function ($scope, $rootScope, $compile, $q, dataService, tv4, $routeParams) {
+happnerApp.controller('DataSchemaEditController', ['$scope',
+  '$rootScope',
+  '$compile',
+  '$q',
+  'dataService',
+  'tv4',
+  '$routeParams',
+  'AppSession',
+  '$location',
+  '$anchorScroll',
+  function ($scope, $rootScope, $compile, $q, dataService, tv4, $routeParams, AppSession, $location, $anchorScroll) {
 
     $scope.currentSchemaId = $routeParams.type;
 
@@ -225,7 +234,61 @@ happnerApp.controller('DataSchemaEditController', ['$scope', '$rootScope', '$com
 
       $scope.previewOpen = true;
 
+      $location.hash('preview_row');
+
+      console.log('preview was clicked:::');
+
       $rootScope.safeApply();
+
+      $anchorScroll();
+      // call $anchorScroll()
+    };
+
+    $scope.saveSchema = function () {
+
+      if (!$scope.validate()) return;
+
+      var path = "/system/data/schema/" + $scope.currentSchema.title;
+
+      var handlerFunc = function (err, data) {
+
+        if (err) {
+          console.log('save error:::', err);
+          return $rootScope.notify('failed to save schema!', 'danger');
+        }
+
+        $scope.currentSchemaId = data._meta.path.split('/').slice(-1)[0];
+
+        $rootScope.notify('schema saved (ID: ' + $scope.currentSchemaId + ')', 'success', 2000);
+        $rootScope.safeApply();
+      };
+
+      dataService.get(path, function(e, previous){
+
+        if (e) return $rootScope.notify('failed to save schema!', 'danger');
+
+        if (previous != null){
+
+          var confirmation = confirm('an existing schema by this name exists, you sure you want to overwrite it?');
+          if (!confirmation) return;
+        }
+
+        $scope.currentVersion++;
+        $scope.currentSchema['version'] = $scope.currentVersion;
+
+        dataService.set(path, $scope.currentSchema, handlerFunc);
+      });
+    };
+
+    $scope.onChange = function (data) {
+      console.log('Form changed!', data);
+
+      //$scope.schema = data;
+      console.dir($scope.currentSchema);
+    };
+
+    $scope.updateSchemaJSON = function(){
+
     };
 
     loadData();
@@ -351,79 +414,86 @@ happnerApp.controller('DataSchemaEditController', ['$scope', '$rootScope', '$com
 
         console.log('set schema json:::', $scope.schemaJSON);
 
-        $scope.previewSchema();
+        //unsubscribe then resubscribe from the event handlers:
 
-        $rootScope.$on('actionClicked', function(event, action){
+        if (AppSession.eventListeners['DataSchemaEditController'] == null)
+          AppSession.eventListeners['DataSchemaEditController'] = {};
+
+        if (AppSession.eventListeners['DataSchemaEditController']['actionClicked'] != null)
+          AppSession.eventListeners['DataSchemaEditController']['actionClicked']();
+
+        if (AppSession.eventListeners['DataSchemaEditController']['actionsReady'] != null)
+          AppSession.eventListeners['DataSchemaEditController']['actionsReady']();
+
+        //$scope.previewSchema();
+
+        AppSession.eventListeners['DataSchemaEditController']['actionClicked'] = $rootScope.$on('actionClicked', function(event, action){
+
+          if (action.editController != 'Edit') return;
+
           console.log('actionClicked:::', event, action);
+
+          if (action.label == 'save'){
+            $scope.saveSchema();
+          }
+
+          if (action.label == 'preview'){
+            $scope.previewSchema();
+          }
+
+          if (action.label == 'search'){
+            $location.path('/warehouse/schema/search');
+          }
+
+          if (action.label == 'delete'){
+
+          }
+
+          $rootScope.safeApply();
         });
 
-        $rootScope.$on('actionsReady', function(){
+        $rootScope.actionsController = 'DataSchemaEditController';
 
-          console.log('actions ready:::');
+        AppSession.eventListeners['DataSchemaEditController']['actionsReady'] = $rootScope.$on('actionsReady', function(event, editController){
 
-          $rootScope.registerActions([
-            {label:'search', icon:'search'},
-            {label:'preview', icon:'eye'},
-            {label:'save', icon:'save'},
-            {label:'delete', icon:'remove'}
-          ]);
+          console.log('editController:::',event, editController);
+
+          if (editController == 'Edit'){
+
+            $rootScope.registerActions([
+              {label:'search', icon:'search'},
+              {label:'preview', icon:'eye'},
+              {label:'save', icon:'save'},
+              {label:'delete', icon:'remove'}
+            ]);
+
+            $rootScope.safeApply();
+          }
         });
-
       }, function (err) {
 
         return $rootScope.notify('unable to build schema editor', 'danger');
 
       });
     }
-
-    $scope.saveSchema = function () {
-
-      if (!$scope.validate()) return;
-
-      var path = "/system/data/schema/" + $scope.currentSchema.title;
-
-      var handlerFunc = function (err, data) {
-
-        if (err) return $rootScope.notify('failed to save schema!', 'danger');
-
-        $scope.currentSchemaId = data._meta.path.split('/').slice(-1)[0];
-
-        $rootScope.notify('schema saved (ID: ' + $scope.currentSchemaId + ')', 'success', 2000);
-        $rootScope.safeApply();
-      };
-
-      dataService.get(path, function(e, previous){
-
-        if (e) return $rootScope.notify('failed to save schema!', 'danger');
-
-        if (previous != null){
-
-          var confirmation = confirm('an existing schema by this name exists, you sure you want to overwrite it?');
-          if (!confirmation) return;
-        }
-
-        $scope.currentVersion++;
-        $scope.currentSchema['version'] = $scope.currentVersion;
-
-        dataService.set(path, $scope.currentSchema, handlerFunc);
-      });
-    };
-
-    $scope.onChange = function (data) {
-      console.log('Form changed!', data);
-
-      //$scope.schema = data;
-      console.dir($scope.currentSchema);
-    };
-
-    $scope.updateSchemaJSON = function(){
-
-    }
   }
 ]);
 
-happnerApp.controller('DataSchemaSearchController', ['$scope', '$rootScope', '$window', '$q', 'dataService',
-  function ($scope, $rootScope, $window, $q, dataService) {
+happnerApp.controller('DataSchemaSearchController', [
+  '$scope',
+  '$rootScope',
+  '$window',
+  '$q',
+  'dataService',
+  'AppSession',
+  '$location',
+  function ($scope,
+            $rootScope,
+            $window,
+            $q,
+            dataService,
+            AppSession,
+            $location) {
 
     $scope.searchCriteria = '';
 
@@ -472,6 +542,49 @@ happnerApp.controller('DataSchemaSearchController', ['$scope', '$rootScope', '$w
           dataRow.deleteURI = '/warehouse/schema/delete/' + schema.title;
 
           $scope.data.rows.push(dataRow);
+        });
+
+        //unsubscribe then resubscribe from the event handlers:
+
+        if (AppSession.eventListeners['DataSchemaSearchController'] == null)
+          AppSession.eventListeners['DataSchemaSearchController'] = {};
+
+        if (AppSession.eventListeners['DataSchemaSearchController']['actionClicked'] != null)
+          AppSession.eventListeners['DataSchemaSearchController']['actionClicked']();
+
+        if (AppSession.eventListeners['DataSchemaSearchController']['actionsReady'] != null)
+          AppSession.eventListeners['DataSchemaSearchController']['actionsReady']();
+
+        //$scope.previewSchema();
+
+        AppSession.eventListeners['DataSchemaSearchController']['actionClicked'] = $rootScope.$on('actionClicked', function(event, action){
+
+          if (action.editController != 'Search') return;
+
+          console.log('actionClicked:::', event, action);
+
+          if (action.label == 'refresh'){
+            $scope.loadData();
+          }
+
+          if (action.label == 'new'){
+            $location.path('/warehouse/schema/edit/new');
+            $rootScope.safeApply();
+          }
+        });
+
+        $rootScope.actionsController = 'DataSchemaSearchController';
+
+        AppSession.eventListeners['DataSchemaSearchController']['actionsReady'] = $rootScope.$on('actionsReady', function(event, editController){
+
+          if (editController == 'Search'){
+            $rootScope.registerActions([
+              {label:'refresh', icon:'search'},
+              {label:'new', icon:'plus'}
+            ]);
+
+            $rootScope.safeApply();
+          }
         });
 
         $rootScope.safeApply();

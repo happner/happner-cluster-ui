@@ -233,10 +233,13 @@ happnerControllers.controller('ActionsController', ['$scope', 'dataService', '$r
   };
 
   $rootScope.actionClicked = function(action){
+
+    action.editController = $scope.editController;
+
     $rootScope.$emit('actionClicked', action);
   };
 
-  $rootScope.$emit('actionsReady');
+  $rootScope.$emit('actionsReady', $scope.editController);
 
   console.log('SET UP ROOTSCOPE:::');
 

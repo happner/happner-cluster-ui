@@ -263,6 +263,9 @@ happnerApp.factory('AppSession', function($rootScope) {
     currentLocation:{
       history:[]
     },
+    eventListeners:{//stored as [controllerName][listenerName]
+
+    },
     //data that is being currently edited, keyed by the path of the item
     dirty:{},
     //used rootscope to push an event throughout the app
