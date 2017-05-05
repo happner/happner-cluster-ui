@@ -236,8 +236,6 @@ happnerApp.controller('DataSchemaEditController', ['$scope',
 
       $location.hash('preview_row');
 
-      console.log('preview was clicked:::');
-
       $rootScope.safeApply();
 
       $anchorScroll();
@@ -248,14 +246,11 @@ happnerApp.controller('DataSchemaEditController', ['$scope',
 
       if (!$scope.validate()) return;
 
-      var path = "/system/data/schema/" + $scope.currentSchema.title;
+      var path = "/data/schema/" + $scope.currentSchema.title;
 
       var handlerFunc = function (err, data) {
 
-        if (err) {
-          console.log('save error:::', err);
-          return $rootScope.notify('failed to save schema!', 'danger');
-        }
+        if (err) return $rootScope.notify('failed to save schema!', 'danger');
 
         $scope.currentSchemaId = data._meta.path.split('/').slice(-1)[0];
 
@@ -281,8 +276,6 @@ happnerApp.controller('DataSchemaEditController', ['$scope',
     };
 
     $scope.onChange = function (data) {
-      console.log('Form changed!', data);
-
       //$scope.schema = data;
       console.dir($scope.currentSchema);
     };
@@ -297,7 +290,7 @@ happnerApp.controller('DataSchemaEditController', ['$scope',
 
         return $q(function (resolve, reject) {
 
-          var path = "/system/data/schema/" + $scope.currentSchemaId;
+          var path = "/data/schema/" + $scope.currentSchemaId;
 
           // we only need to load a template if we are editing an existing one...
           if ($scope.currentSchemaId != 'new') {
@@ -412,8 +405,6 @@ happnerApp.controller('DataSchemaEditController', ['$scope',
         $scope.schemaJSON = JSON.stringify($scope.currentSchema, null, 2);
         $scope.currentSchemaName = schema.title;
 
-        console.log('set schema json:::', $scope.schemaJSON);
-
         //unsubscribe then resubscribe from the event handlers:
 
         if (AppSession.eventListeners['DataSchemaEditController'] == null)
@@ -430,8 +421,6 @@ happnerApp.controller('DataSchemaEditController', ['$scope',
         AppSession.eventListeners['DataSchemaEditController']['actionClicked'] = $rootScope.$on('actionClicked', function(event, action){
 
           if (action.editController != 'Edit') return;
-
-          console.log('actionClicked:::', event, action);
 
           if (action.label == 'save'){
             $scope.saveSchema();
@@ -455,8 +444,6 @@ happnerApp.controller('DataSchemaEditController', ['$scope',
         $rootScope.actionsController = 'DataSchemaEditController';
 
         AppSession.eventListeners['DataSchemaEditController']['actionsReady'] = $rootScope.$on('actionsReady', function(event, editController){
-
-          console.log('editController:::',event, editController);
 
           if (editController == 'Edit'){
 
@@ -499,7 +486,7 @@ happnerApp.controller('DataSchemaSearchController', [
 
     $scope.data = {
       headers: [
-        "id",
+        "number",
         "name",
         "version"
       ],
@@ -524,7 +511,7 @@ happnerApp.controller('DataSchemaSearchController', [
 
       var criteria = {};
 
-      dataService.get("/system/data/schema/*", {criteria: criteria}, function (e, schemas) {
+      dataService.get("/data/schema/*", {criteria: criteria}, function (e, schemas) {
 
         if (e) return $rootScope.notify('failed to fetch schemas', 'danger');
 
@@ -532,14 +519,14 @@ happnerApp.controller('DataSchemaSearchController', [
 
           dataRow = {
             columns: [
-              schema._meta.path.split('/').slice(-1)[0],
-              schema.title,
+              schema.number,
+              schema.name,
               schema.version
             ]
           };
 
-          dataRow.editURI = '/warehouse/schema/edit/' + schema.title;
-          dataRow.deleteURI = '/warehouse/schema/delete/' + schema.title;
+          dataRow.editURI = '/warehouse/schema/edit/' + schema.number;
+          dataRow.deleteURI = '/warehouse/schema/delete/' + schema.number;
 
           $scope.data.rows.push(dataRow);
         });
@@ -560,8 +547,6 @@ happnerApp.controller('DataSchemaSearchController', [
         AppSession.eventListeners['DataSchemaSearchController']['actionClicked'] = $rootScope.$on('actionClicked', function(event, action){
 
           if (action.editController != 'Search') return;
-
-          console.log('actionClicked:::', event, action);
 
           if (action.label == 'refresh'){
             $scope.loadData();
@@ -602,7 +587,7 @@ happnerApp.controller('DataSchemaSearchController', [
     $scope.deleteSelected = function (row) {
 
       var schemaId = row.columns[0];
-      var path = '/system/data/schema/' + schemaId;
+      var path = '/data/schema/' + schemaId;
 
       dataService.remove(path, null, function (err) {
         if (err) return $rootScope.notify('schema (ID: ' + path + ') could not be deleted', 'danger', 2000);
@@ -619,7 +604,7 @@ happnerApp.controller('DataSchemaSearchController', [
 
       (function () {
         return $q(function (resolve, reject) {
-          dataService.get('/system/data/schema/' + schemaId, function (err, schema) {
+          dataService.get('/data/schema/' + schemaId, function (err, schema) {
 
             if (!schema) reject('No schema found');
 
@@ -649,7 +634,6 @@ happnerApp.controller('DataSchemaSearchController', [
           a.dispatchEvent(e);
 
         }, function (err) {
-          console.log(err);
           return $rootScope.notify('failed to fetch schema', 'danger');
         });
     };

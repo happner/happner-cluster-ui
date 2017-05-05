@@ -16,36 +16,42 @@ ServiceManager.prototype.__startHappner = function (config, callback) {
 
     Happner.create(config, function (err, mesh) {
 
-        if (err) {
-            console.log(':: Error starting Happner: ' + err);
-            callback(err);
-        }
+        if (err) return callback(err);
 
-        mesh._mesh.data.get('/system-events', function(e, result){
+        mesh._mesh.data.get('/data/system-events', function(e, result){
 
             if (e) return console.log('failed logging restarts', e);
 
             if (!result) result = {restarts:0};
 
             result.uptime = Date.now();
+
             result.restarts += 1;
 
-            mesh._mesh.data.set('/system-events', result);
+            mesh._mesh.data.set('/data/system-events', result);
 
         });
 
         self.__mesh = mesh;
 
         self.__mesh.on('mesh-log', function (data) {
-            console.log('mesh log data:::', data);
-            self.__mesh.data.set('/system-log/' + Date.now(), data);
+            self.__mesh.data.set('/data/system-log/' + Date.now(), data);
         });
 
         self.__controllers = new Controllers();
 
         if (!config.controllers) config.controllers = {};
 
-        if (!config.controllers.initOrder) config.controllers.initOrder = ['schema','app_schema','customer','group','user'];
+        if (!config.controllers.initOrder)
+          config.controllers.initOrder = [
+            'schema',
+            'organisation',
+            'group',
+            'user',
+            'filter',
+            'view',
+            'object',
+            'report'];
 
         self.__controllers.initialize(self.__mesh, config.controllers, callback);
     });

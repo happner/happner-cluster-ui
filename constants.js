@@ -1,0 +1,12 @@
+module.exports = {
+  CONTROLLER_STATE:{
+    UNINITIALIZED:0,
+    INITIALIZING:1,
+    STARTED:1,
+    ERROR:1
+  },
+  GROUP_MEMBERSHIP_STATE:{
+   SUSPENDED:0,
+   ACTIVE:1
+  }
+};

@@ -1,0 +1,73 @@
+{
+  "organisation":1,
+  "schema":{
+    "schemaType":"composite",
+    "schema":[12, 11, 10, 9],
+    "relatedFields":["organisation"],
+    "deduplicate":{
+      "fields":{
+        "cost":{
+          "operation":"SUM"
+        },
+        "shipping-code":{
+          "operation":"duplicate"
+        }
+      },
+      "defaultOperation":"duplicate"
+    },
+    "merge":{
+      "fields":{
+        "name":{
+          "operation":"split"
+        }
+      },
+      "defaultOperation":"replace:12"
+    }
+  },
+  "mode":{
+    "edit":{
+      "enabled":true,
+      "sidebar":{
+        "enabled":false,
+        "area": "warehouse",
+        "order": 10,
+        "label": ""
+      },
+      "fields":[
+        {"fieldName":"name", "defaultValue":"test", "editable":true},
+        {"fieldName":"created", "defaultValue":"test", "editable":false},
+        {"fieldName":"modified", "defaultValue":"test", "editable":false, "filter":""}
+      ]
+    },
+    "delete":{
+      "enabled":true,
+      "sidebar":{
+        "enabled":false,
+        "area":"warehouse",
+        "order":10
+      }
+    },
+    "list":{
+      "enabled":true,
+      "sidebar":{
+        "enabled":false,
+        "area":"warehouse",
+        "order":10
+      },
+      "fields":[
+        {"fieldName":"name"},
+        {"fieldName":"created"},
+        {"fieldName":"modified"},
+        {"fieldName":"modifiedBy", "label":"modified by"}
+      ]
+    },
+    "view":{
+      "enabled":true,
+      "sidebar":{
+        "enabled":false,
+        "area":"warehouse",
+        "order":10
+      }
+    }
+  }
+}

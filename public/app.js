@@ -76,6 +76,15 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
       templateUrl : '/system/templates/dashboard.html'
     })
 
+    .when('/organisation', {
+      templateUrl : './organisation/templates/dashboard.html'
+    })
+
+    .when('/organisation/search', {
+      templateUrl: '/warehouse/templates/object-search.html?type=organisation',
+      controller:'DataSearchController'
+    })
+
     .when('/cluster/edit/:id', {
       templateUrl : '/cluster/templates/cluster_edit.html'
     })
@@ -130,7 +139,7 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
 
     // route for the about page
     .when('/warehouse/schema/search', {
-      templateUrl : '/warehouse/templates/data-search.html',
+      templateUrl : '/warehouse/templates/object-search.html',
       controller:'DataSchemaSearchController'
     })
 
@@ -142,14 +151,14 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
 
     .when('/warehouse/data/:type/search', {
       templateUrl: function(urlattr){
-        return '/warehouse/templates/data-search.html?type=' + urlattr.type;
+        return '/warehouse/templates/object-search.html?type=' + urlattr.type;
       },
       controller:'DataSearchController'
     })
 
     .when('/warehouse/data/:type/edit/:id', {
       templateUrl: function(urlattr){
-        return "/warehouse/templates/data-edit.html?type=" + urlattr.type + '&id=' + (urlattr.id?urlattr.id:'new');
+        return "/warehouse/templates/object-edit.html?type=" + urlattr.type + '&id=' + (urlattr.id?urlattr.id:'new');
       }
     })
 
@@ -239,14 +248,6 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
 
     .when('/assemblyline/factory/search', {
       templateUrl : './assemblyline/templates/factory_search.html'
-    })
-
-    .when('/organisation', {
-      templateUrl : './organisation/templates/organisation_search.html'
-    })
-
-    .when('/organisation/search', {
-      templateUrl : './organisation/templates/organisation_search.html'
     })
   ;
 

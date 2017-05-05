@@ -1,0 +1,289 @@
+{
+  "title":"ViewComposite",
+  "properties": {
+    "name": {
+      "id": "/properties/name",
+      "type": "string"
+    },
+    "number": {
+      "id": "/properties/number",
+      "type": "integer"
+    },
+    "organisation": {
+      "id": "/properties/organisation",
+      "type": "integer"
+    },
+    "deleted": {
+      "type":"string",
+      "format":"datetime-local",
+      "readOnly":true
+    },
+    "_meta": {
+      "id": "/properties/_meta",
+      "properties": {
+        "created": {
+          "type":"string",
+          "format":"datetime-local",
+          "readOnly":true
+        },
+        "createdBy": {
+          "id": "/properties/_meta/properties/createdBy",
+          "type": "string"
+        },
+        "modified": {
+          "type":"string",
+          "format":"datetime-local",
+          "readOnly":true
+        }
+      },
+      "type": "object"
+    },
+    "mode": {
+      "id": "/properties/mode",
+      "properties": {
+        "delete": {
+          "id": "/properties/mode/properties/delete",
+          "properties": {
+            "enabled": {
+              "id": "/properties/mode/properties/delete/properties/enabled",
+              "type": "boolean"
+            },
+            "sidebar": {
+              "id": "/properties/mode/properties/delete/properties/sidebar",
+              "properties": {
+                "area": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/area",
+                  "type": "string"
+                },
+                "enabled": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/enabled",
+                  "type": "boolean"
+                },
+                "order": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/order",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "edit": {
+          "id": "/properties/mode/properties/edit",
+          "properties": {
+            "enabled": {
+              "id": "/properties/mode/properties/edit/properties/enabled",
+              "type": "boolean"
+            },
+            "fields": {
+              "id": "/properties/mode/properties/edit/properties/fields",
+              "items": {
+                "id": "/properties/mode/properties/edit/properties/fields/items",
+                "properties": {
+                  "defaultValue": {
+                    "id": "/properties/mode/properties/edit/properties/fields/items/properties/defaultValue",
+                    "type": "string"
+                  },
+                  "editable": {
+                    "id": "/properties/mode/properties/edit/properties/fields/items/properties/editable",
+                    "type": "boolean"
+                  },
+                  "fieldName": {
+                    "id": "/properties/mode/properties/edit/properties/fields/items/properties/fieldName",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "sidebar": {
+              "id": "/properties/mode/properties/edit/properties/sidebar",
+              "properties": {
+                "area": {
+                  "id": "/properties/mode/properties/edit/properties/sidebar/properties/area",
+                  "type": "string"
+                },
+                "enabled": {
+                  "id": "/properties/mode/properties/edit/properties/sidebar/properties/enabled",
+                  "type": "boolean"
+                },
+                "label": {
+                  "id": "/properties/mode/properties/edit/properties/sidebar/properties/label",
+                  "type": "string"
+                },
+                "order": {
+                  "id": "/properties/mode/properties/edit/properties/sidebar/properties/order",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "list": {
+          "id": "/properties/mode/properties/list",
+          "properties": {
+            "enabled": {
+              "id": "/properties/mode/properties/list/properties/enabled",
+              "type": "boolean"
+            },
+            "fields": {
+              "id": "/properties/mode/properties/list/properties/fields",
+              "items": {
+                "id": "/properties/mode/properties/list/properties/fields/items",
+                "properties": {
+                  "fieldName": {
+                    "id": "/properties/mode/properties/list/properties/fields/items/properties/fieldName",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "sidebar": {
+              "id": "/properties/mode/properties/list/properties/sidebar",
+              "properties": {
+                "area": {
+                  "id": "/properties/mode/properties/list/properties/sidebar/properties/area",
+                  "type": "string"
+                },
+                "enabled": {
+                  "id": "/properties/mode/properties/list/properties/sidebar/properties/enabled",
+                  "type": "boolean"
+                },
+                "order": {
+                  "id": "/properties/mode/properties/list/properties/sidebar/properties/order",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "view": {
+          "id": "/properties/mode/properties/view",
+          "properties": {
+            "enabled": {
+              "id": "/properties/mode/properties/view/properties/enabled",
+              "type": "boolean"
+            },
+            "sidebar": {
+              "id": "/properties/mode/properties/view/properties/sidebar",
+              "properties": {
+                "area": {
+                  "id": "/properties/mode/properties/view/properties/sidebar/properties/area",
+                  "type": "string"
+                },
+                "enabled": {
+                  "id": "/properties/mode/properties/view/properties/sidebar/properties/enabled",
+                  "type": "boolean"
+                },
+                "order": {
+                  "id": "/properties/mode/properties/view/properties/sidebar/properties/order",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "schema": {
+      "id": "/properties/schema",
+      "properties": {
+        "deduplicate": {
+          "id": "/properties/schema/properties/deduplicate",
+          "properties": {
+            "defaultOperation": {
+              "id": "/properties/schema/properties/deduplicate/properties/defaultOperation",
+              "type": "string"
+            },
+            "fields": {
+              "id": "/properties/schema/properties/deduplicate/properties/fields",
+              "properties": {
+                "cost": {
+                  "id": "/properties/schema/properties/deduplicate/properties/fields/properties/cost",
+                  "properties": {
+                    "operation": {
+                      "id": "/properties/schema/properties/deduplicate/properties/fields/properties/cost/properties/operation",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "shipping-code": {
+                  "id": "/properties/schema/properties/deduplicate/properties/fields/properties/shipping-code",
+                  "properties": {
+                    "operation": {
+                      "id": "/properties/schema/properties/deduplicate/properties/fields/properties/shipping-code/properties/operation",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "merge": {
+          "id": "/properties/schema/properties/merge",
+          "properties": {
+            "defaultOperation": {
+              "id": "/properties/schema/properties/merge/properties/defaultOperation",
+              "type": "string"
+            },
+            "fields": {
+              "id": "/properties/schema/properties/merge/properties/fields",
+              "properties": {
+                "name": {
+                  "id": "/properties/schema/properties/merge/properties/fields/properties/name",
+                  "properties": {
+                    "operation": {
+                      "id": "/properties/schema/properties/merge/properties/fields/properties/name/properties/operation",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "relatedFields": {
+          "id": "/properties/schema/properties/relatedFields",
+          "items": {
+            "id": "/properties/schema/properties/relatedFields/items",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "schema": {
+          "id": "/properties/schema/properties/schema",
+          "items": {
+            "id": "/properties/schema/properties/schema/items",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "schemaType": {
+          "id": "/properties/schema/properties/schemaType",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

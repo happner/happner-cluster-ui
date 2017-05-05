@@ -1,0 +1,10 @@
+{
+  "name":"test",
+  "number":1,
+  "deleted":"2017-05-05 12:13:00",
+  "_meta":{
+    "created":"2017-05-05 12:13:00",
+    "modified":"2017-05-05 12:13:00",
+    "createdBy":"_ADMIN"
+  }
+}

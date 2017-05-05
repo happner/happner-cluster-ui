@@ -1,37 +1,66 @@
 var fs = require('fs');
 var path = require('path');
 var async = require('async');
+var constants = require('../constants');
 
 function Controllers(){
   this.__controllers = {};
 }
 
-Controllers.prototype.each = function(iterator, callback){
+Controllers.prototype.each = function(iterator, callback, filter){
+
   var _this = this;
-  
+
   var controllerKeys = Object.keys(_this.__controllers);
+
+  if (filter) controllerKeys = filter;
 
   if (controllerKeys.length == 0) return callback();
 
-  async.each(controllerKeys, function(controllerKey, controllerKeyCallback){
+  async.eachSeries(controllerKeys, function(controllerKey, controllerKeyCallback){
 
     var controller = _this.__controllers[controllerKey];
+
     iterator.call(iterator, controller, controllerKeyCallback);
 
   }, callback);
 
 };
 
+Controllers.prototype.objectId = function(type, callback){
+
+  var _this = this;
+
+  _this.__mesh.data.get('/_SYSTEM/warehouse/' + type + '/objectid', function(e, found){
+
+    if (e) return callback(e);
+
+    var id = 0;
+
+    if (found != null) id = found.value;
+
+    id += 1;
+
+    _this.__mesh.data.set('/_SYSTEM/warehouse/' + type + '/objectid', id, {merge:true}, function(e){
+
+      if (e) return callback(e);
+
+      return callback(null, id);
+    });
+  });
+};
+
 Controllers.prototype.__log = function(type, message, data){
 
 };
 
-Controllers.prototype.__attachDataEventsToControllers = function(callback){
+Controllers.prototype.__attachDataEventsAndMethodsToControllers = function(callback){
   var _this = this;
 
-  _this.__mesh.data.on('/system/data/*', function(dataItem, _meta){
+  _this.__mesh.data.on('/data/*', function(dataItem, _meta){
 
-    var typeNameParts = _meta.path.replace('/system/data/', '').toLowerCase().replace(' ', '_');
+    var typeNameParts = _meta.path.replace('/data/', '').toLowerCase().replace(' ', '_');
+
     var typeName = typeNameParts.split('/')[0];
 
     if (_this.__controllers[typeName]){
@@ -68,8 +97,6 @@ Controllers.prototype.__dataChanged = function(item, message, callback){
 
   _this.__mesh.data.set(commsPath, {data:item, message:message}, {merge:true}, function(e){
 
-    console.log('sent comms:::', commsPath, e);
-
     if (e) return _this.__log('error', 'failed emitting comms event', e);
 
     if (callback) return callback(e);
@@ -79,14 +106,22 @@ Controllers.prototype.__dataChanged = function(item, message, callback){
 
 Controllers.prototype.__getCommsPath = function(path){
 
-  return '/comms/' + path.split('/').slice(-1)[0];
+  return '/data/comms/' + path.split('/').slice(-1)[0];
 };
 
-Controllers.prototype.__initializeControllers = function(callback){
+Controllers.prototype.__initializeControllers = function(initOrder, callback){
 
   var _this = this;
 
   _this.each(function(controller, controllerCallback){
+
+    Object.defineProperty(controller.instance, '__constants', {
+      value:constants
+    });
+
+    Object.defineProperty(controller.instance, '__state', {
+      value:constants.CONTROLLER_STATE.UNINITIALIZED
+    });
 
     Object.defineProperty(controller.instance, '__mesh', {
       value:_this.__mesh
@@ -104,14 +139,42 @@ Controllers.prototype.__initializeControllers = function(callback){
       value:_this.__events
     });
 
-    if (controller.instance.initialize) controller.instance.initialize(controller.config, controllerCallback);
-    else controllerCallback();
+    Object.defineProperty(controller.instance, '__controllers', {
+      value:_this.__controllers
+    });
 
-  }, callback);
+    if (controller.instance.typeName){
+      Object.defineProperty(controller.instance, '__objectId', {
+        value:function(cb){
+          return _this.objectId(this.typeName, cb);
+        }.bind({typeName:controller.instance.typeName})
+      });
+    }
+
+    if (!controller.instance.initialize) {
+      controller.instance.state = constants.CONTROLLER_STATE.STARTED;
+      return controllerCallback();
+    }
+
+    controller.instance.state = constants.CONTROLLER_STATE.INITIALIZING;
+
+    controller.instance.initialize(controller.config, function(e){
+
+      if (e){
+        controller.instance.state = constants.CONTROLLER_STATE.ERROR;
+        return controllerCallback(e);
+      }
+
+      controller.instance.state = constants.CONTROLLER_STATE.STARTED;
+      controllerCallback();
+    });
+
+  }, callback, initOrder);
 
 };
 
 Controllers.prototype.__loadControllersFromDirectory = function(config, callback){
+
   var _this = this;
 
   if (!config.controllersPath) config.controllersPath = __dirname;
@@ -172,13 +235,14 @@ Controllers.prototype.initialize = function(mesh, config, callback){
 
     if (e) return callback(e);
 
-    _this.__initializeControllers(function(e){
+    _this.__initializeControllers(config.initOrder, function(e){
 
       if (e) return callback(e);
 
-      _this.__attachDataEventsToControllers(function(e){
+      _this.__attachDataEventsAndMethodsToControllers(function(e){
 
         if (e) return callback(e);
+
         _this.__initialized = true;
 
         callback();
@@ -194,7 +258,7 @@ Controllers.prototype.stop = function(opts, callback){
 
   if (typeof opts == 'function'){
     callback = opts;
-    opts =- {};
+    opts = {};
   }
 
   if (this.__initialized){

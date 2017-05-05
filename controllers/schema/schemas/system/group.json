@@ -1,9 +1,42 @@
 {
   "title":"Group",
   "properties":{
-    "name":{
+    "name": {
+      "id": "/properties/name",
+      "type": "string"
+    },
+    "number": {
+      "id": "/properties/number",
+      "type": "integer"
+    },
+    "organisation": {
+      "id": "/properties/organisation",
+      "type": "integer"
+    },
+    "deleted": {
       "type":"string",
-      "required":true
+      "format":"datetime-local",
+      "readOnly":true
+    },
+    "_meta": {
+      "id": "/properties/_meta",
+      "properties": {
+        "created": {
+          "type":"string",
+          "format":"datetime-local",
+          "readOnly":true
+        },
+        "createdBy": {
+          "id": "/properties/_meta/properties/createdBy",
+          "type": "string"
+        },
+        "modified": {
+          "type":"string",
+          "format":"datetime-local",
+          "readOnly":true
+        }
+      },
+      "type": "object"
     },
     "description":{
       "type":"string",
@@ -39,16 +72,6 @@
           }
         }
       }
-    },
-    "created":{
-      "type":"string",
-      "format":"datetime-local",
-      "readOnly":true
-    },
-    "modified":{
-      "type":"string",
-      "format":"datetime-local",
-      "readOnly":true
     }
   }
 }

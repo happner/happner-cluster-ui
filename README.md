@@ -59,6 +59,9 @@ node server/start
   - the list view makes only the name, created, modified, createdBy, modifiedBy, deleted, deletedBy visible by default
   - the list view uses the default filter set automatically generated, which is to be able to filter by name, created, modified, limited to 20 items
   - a composite view can be created by selecting multiple schemas and joining them by a list of fields they have i common
+  
+  - fields in a composite view must either be duplicated into a matrix or deduplicated using an aggregator function
+  
   - the composite view can be a deduplicated AGGREGATION VIEW: have composite fields that are SUMMED/MULTIPLIED/APPENDED/MIN/MAX/FUNC (user defined aggregator function)
   - or the composite view can be duplicated MATRIX VIEW: rows are duplicated to include values that are products of many-to-any relationships
   - when saving an editable composite view, only the un-calculated fields are editable and saveable

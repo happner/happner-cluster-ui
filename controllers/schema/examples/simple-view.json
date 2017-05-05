@@ -1,0 +1,54 @@
+{
+  "organisation":1,
+  "schema":{
+    "schemaType":"simple",
+    "schema":12
+  },
+  "mode":{
+    "edit":{
+      "enabled":true,
+      "sidebar":{
+        "enabled":false,
+        "area": "warehouse",
+        "order": 10,
+        "label": ""
+      },
+      "fields":[
+        {"fieldName":"name", "defaultValue":"test", "editable":true},
+        {"fieldName":"created", "defaultValue":"test", "editable":false},
+        {"fieldName":"modified", "defaultValue":"test", "editable":false, "filter":""}
+      ]
+    },
+    "delete":{
+      "enabled":true,
+      "sidebar":{
+        "enabled":false,
+        "area":"warehouse",
+        "order":10
+      }
+    },
+    "list":{
+      "enabled":true,
+      "filters":[3, 4, 5],
+      "sidebar":{
+        "enabled":false,
+        "area":"warehouse",
+        "order":10
+      },
+      "fields":[
+        {"fieldName":"name"},
+        {"fieldName":"created"},
+        {"fieldName":"modified"},
+        {"fieldName":"modifiedBy", "label":"modified by"}
+      ]
+    },
+    "view":{
+      "enabled":true,
+      "sidebar":{
+        "enabled":false,
+        "area":"warehouse",
+        "order":10
+      }
+    }
+  }
+}

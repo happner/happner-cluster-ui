@@ -1,11 +1,15 @@
 {
-  "title":"User",
-  "properties":{
+  "title":"Base",
+  "properties": {
     "name": {
       "id": "/properties/name",
       "type": "string"
     },
     "number": {
+      "id": "/properties/number",
+      "type": "integer"
+    },
+    "version": {
       "id": "/properties/number",
       "type": "integer"
     },
@@ -37,26 +41,7 @@
         }
       },
       "type": "object"
-    },
-    "password":{
-      "type":"string",
-      "format":"password"
-    },
-    "publicKey":{
-      "type":"string"
-    },
-    "groups":{
-      "type":"array",
-      "uniqueItems": true,
-      "items": {
-        "type": "object",
-        "#ref": "Group"
-      }
-    },
-    "status":{
-      "type":"string",
-      "enum":["active","inactive"],
-      "required":true
     }
-  }
+  },
+  "type": "object"
 }

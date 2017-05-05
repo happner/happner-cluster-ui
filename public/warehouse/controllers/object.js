@@ -1,5 +1,5 @@
 
-happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'tv4', '$routeParams',
+happnerApp.controller('ObjectEditController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'tv4', '$routeParams',
   function ($scope, $rootScope, $compile, $q, dataService, tv4, $routeParams) {
 
     JSONEditor.defaults.editors.object.options.collapsed = false;
@@ -9,22 +9,22 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
     $scope.changes = [];
 
     $scope.dataValue = {};
-    $scope.basePath = '/system/data/' + $routeParams.type;
+    $scope.basePath = '/data/' + $routeParams.type;
 
     $scope.changedData = null;
-    $scope.dataSchema = {};
+    $scope.schema = {};
 
     $scope.currentType = $routeParams.type;
     $scope.currentId = $routeParams.id;
 
     $scope.getCommsPath = function(path){
-      return '/comms/' + path.split('/').slice(-1)[0];
+      return '/data/comms/' + path.split('/').slice(-1)[0];
     };
 
     $scope.dataChangedSomewhereElseNoUpdate = function(data, meta){
 
       $scope.changes.push({message:'data was updated elsewhere'});
-      $scope.$apply();
+      $rootScope.safeApply();
 
     };
 
@@ -38,8 +38,6 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
 
       $scope.dataValue = data.data;
 
-      console.log('changed somewhere else:::', data, meta);
-
       $scope.loadEditor();
     };
 
@@ -49,7 +47,7 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
 
         if (e) return $rootScope.notify('unable to open control channel', 'danger', 2000);
 
-        $scope.$apply();
+        $rootScope.safeApply();
         callback();
 
       });
@@ -75,9 +73,9 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
 
             if (e) return $rootScope.notify('unable to open control channel', 'danger', 2000);
 
-            $scope.$apply();
-            callback();
+            $rootScope.safeApply();
 
+            callback();
           });
         });
 
@@ -86,11 +84,11 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
 
     $scope.init = function(){
 
-      dataService.get('/system/data/schema/' + $scope.currentType, function(e, schema){
+      dataService.get('/data/schema/' + $scope.currentType, function(e, schema){
 
         if (e) return $rootScope.notify('failed to fetch schema', 'danger', 2000);
 
-        $scope.dataSchema = schema;
+        $scope.schema = schema;
 
         if ($scope.currentId != 'new'){
 
@@ -99,8 +97,6 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
             if (e) return $rootScope.notify('failed to fetch data', 'danger', 2000);
 
             $scope.dataValue = data;
-
-            console.log('DATA VALUE:::', data);
 
             $scope.openChangeUpdateChannel($scope.basePath + '/' + $scope.currentId, function(e){
 
@@ -118,7 +114,6 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
           });
 
         } else $scope.loadEditor();
-
       });
     };
 
@@ -130,11 +125,7 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
 
       if (!$scope.changedData) return $rootScope.notify('you cannot save an unedited item', 'warning', 2000);
 
-      console.log('doing save:::');
-
       if ($scope.currentId == 'new'){
-
-        console.log('doing insert:::', $scope.changedData);
 
         dataService.setSibling($scope.basePath, $scope.changedData, function(e, item){
 
@@ -146,13 +137,10 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
           $scope.openControlChannel(item._meta.path, function(e){
 
             return $rootScope.notify('item saved ok', 'success', 2000);
-
           });
         });
 
       } else {
-
-        console.log('doing update:::', $scope.changedData);
 
         dataService.set($scope.basePath + '/' + $scope.currentId, $scope.changedData, {merge:true}, function(e){
 
@@ -179,7 +167,7 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
 
     $scope.createEditorElement = function () {
       return angular.element(document.createElement('json-editor'))
-        .attr('schema', "dataSchema")
+        .attr('schema', "schema")
         .attr('startval', "dataValue")
         .attr('on-change', "dataChanged($editorValue)");
     };
@@ -188,24 +176,24 @@ happnerApp.controller('DataEditController', ['$scope', '$rootScope', '$compile',
   }
 ]);
 
-happnerApp.controller('DataBlankController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'tv4',
+happnerApp.controller('ObjectBlankController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'tv4',
   function ($scope, $rootScope, $compile, $q, dataService, tv4) {
 
   }
 ]);
 
 
-happnerApp.controller('DataSearchController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'tv4', '$routeParams',
+happnerApp.controller('ObjectSearchController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'tv4', '$routeParams',
   function ($scope, $rootScope, $compile, $q, dataService, tv4, $routeParams) {
 
     $scope.changes = [];
 
     $scope.currentType = $routeParams.type;
 
-    $scope.basePath = '/system/data/' + $scope.currentType;
+    $scope.basePath = '/data/' + $scope.currentType;
 
     $scope.changedData = null;
-    $scope.dataSchema = {};
+    $scope.schema = {};
 
     $scope.searchCriteria = '';
 
@@ -259,13 +247,13 @@ happnerApp.controller('DataSearchController', ['$scope', '$rootScope', '$compile
 
       var newRow = {columns:[]};
 
-      $scope.appSchema.list_fields.forEach(function(field){
-        newRow.columns.push($scope.getValue(item, field, $scope.dataSchema));
+      $scope.view.fields.forEach(function(field){
+        newRow.columns.push($scope.getValue(item, field, $scope.schema));
       });
 
       newRow.id = item._meta.path.split('/')[item._meta.path.split('/').length - 1];
-      newRow.editURI = '/data/' + $scope.dataSchema.title + '/edit/' + newRow.id;
-      newRow.deleteURI = '/data/' + $scope.dataSchema.title + '/delete/' + newRow.id;
+      newRow.editURI = '/data/' + $scope.schema.name + '/edit/' + newRow.id;
+      newRow.deleteURI = '/data/' + $scope.schema.name + '/delete/' + newRow.id;
 
       $scope.data.rows.push(newRow);
     };
@@ -276,21 +264,19 @@ happnerApp.controller('DataSearchController', ['$scope', '$rootScope', '$compile
 
       $scope.updateDataItem(data);
 
-      $scope.$apply();
+      $rootScope.safeApply();
     };
 
     $scope.openControlChannel = function(path, callback){
-
-      console.log('listing objects:::', path);
 
       dataService.get(path, function(e, initialValues){
 
         if (e) return $rootScope.notify('failed fetching last change', 'danger', 2000);
 
-        console.log('object list:::', initialValues);
-
         if (initialValues.length > 0){
+
           initialValues.map(function(value){
+
             $scope.addDataItem(value);
           });
         }
@@ -299,7 +285,8 @@ happnerApp.controller('DataSearchController', ['$scope', '$rootScope', '$compile
 
           if (e) return $rootScope.notify('unable to open control channel', 'danger', 2000);
 
-          $scope.$apply();
+          $rootScope.safeApply();
+
           callback();
 
         });
@@ -308,19 +295,19 @@ happnerApp.controller('DataSearchController', ['$scope', '$rootScope', '$compile
 
     $scope.init = function(){
 
-      dataService.get('/system/data/app_schema/' + $scope.currentType, function(e, appSchema){
+      dataService.get('/data/view/' + $scope.currentType, function(e, view){
 
-        if (e) return $rootScope.notify('failed to fetch schema', 'danger', 2000);
+        if (e) return $rootScope.notify('failed to fetch view', 'danger', 2000);
 
-        $scope.appSchema = appSchema;
+        $scope.view = view;
 
-        $scope.prepareUI($scope.appSchema);
+        $scope.prepareUI($scope.view);
 
-        dataService.get('/system/data/schema/' + $scope.currentType, function(e, schema){
+        dataService.get('/system/schema/' + $scope.currentType, function(e, schema){
 
           if (e) return $rootScope.notify('failed to fetch schema', 'danger', 2000);
 
-          $scope.dataSchema = schema;
+          $scope.schema = schema;
 
           $scope.openControlChannel($scope.basePath + '/*', function(e){
 
@@ -332,11 +319,5 @@ happnerApp.controller('DataSearchController', ['$scope', '$rootScope', '$compile
     };
 
     $scope.init();
-  }
-]);
-
-happnerApp.controller('DataFilterController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'tv4',
-  function ($scope, $rootScope, $compile, $q, dataService, tv4) {
-
   }
 ]);

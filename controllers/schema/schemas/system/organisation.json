@@ -1,6 +1,6 @@
 {
-  "title":"User",
-  "properties":{
+  "title":"Organisation",
+  "properties": {
     "name": {
       "id": "/properties/name",
       "type": "string"
@@ -38,25 +38,10 @@
       },
       "type": "object"
     },
-    "password":{
-      "type":"string",
-      "format":"password"
-    },
-    "publicKey":{
-      "type":"string"
-    },
-    "groups":{
-      "type":"array",
-      "uniqueItems": true,
-      "items": {
-        "type": "object",
-        "#ref": "Group"
-      }
-    },
-    "status":{
-      "type":"string",
-      "enum":["active","inactive"],
-      "required":true
+    "description":{
+      "id": "/properties/description",
+      "type": "string"
     }
-  }
+  },
+  "type": "object"
 }
