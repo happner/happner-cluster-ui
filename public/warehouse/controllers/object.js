@@ -1,6 +1,19 @@
 
-happnerApp.controller('ObjectEditController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'tv4', '$routeParams',
-  function ($scope, $rootScope, $compile, $q, dataService, tv4, $routeParams) {
+happnerApp.controller('ObjectEditController',
+  ['$scope',
+    '$rootScope',
+    '$compile',
+    '$q',
+    'dataService',
+    'tv4',
+    '$routeParams',
+  function ($scope,
+            $rootScope,
+            $compile,
+            $q,
+            dataService,
+            tv4,
+            $routeParams) {
 
     JSONEditor.defaults.editors.object.options.collapsed = false;
     JSONEditor.defaults.options.required_by_default = true;
@@ -183,14 +196,16 @@ happnerApp.controller('ObjectBlankController', ['$scope', '$rootScope', '$compil
 ]);
 
 
-happnerApp.controller('ObjectSearchController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'tv4', '$routeParams',
-  function ($scope, $rootScope, $compile, $q, dataService, tv4, $routeParams) {
+happnerApp.controller('ObjectSearchController', ['$scope', '$rootScope', '$compile', '$q', 'dataService', 'uiService', 'tv4', '$routeParams',
+  function ($scope, $rootScope, $compile, $q, dataService, uiService, tv4, $routeParams) {
 
     $scope.changes = [];
 
     $scope.currentType = $routeParams.type;
 
     $scope.basePath = '/data/' + $scope.currentType;
+
+    console.log('$routeParams:::', $routeParams);
 
     $scope.changedData = null;
     $scope.schema = {};
@@ -202,9 +217,13 @@ happnerApp.controller('ObjectSearchController', ['$scope', '$rootScope', '$compi
       rows: []
     };
 
-    $scope.prepareUI = function(schema){
-      schema.list_fields.forEach(function(field){
-        $scope.data.headers.push(field);
+    $scope.prepareUI = function(view){
+
+      view.mode.list.fields.forEach(function(field){
+
+        var label = field.label?field.label:field.fieldName;
+
+        $scope.data.headers.push(label);
       });
     };
 
@@ -212,48 +231,16 @@ happnerApp.controller('ObjectSearchController', ['$scope', '$rootScope', '$compi
 
     };
 
-    $scope.getValue = function(item, field, schema){
-
-      var lastValue;
-      var lastType;
-
-      if (field.indexOf('.') > -1){
-
-        var fields = field.split('.');
-
-        lastValue = item;
-        lastType = schema;
-
-        fields.forEach(function(field){
-
-          lastValue = lastValue[field];
-          lastType = lastType.properties[field];
-
-        });
-      }
-
-      else {
-        lastValue = item[field];
-        lastType = schema.properties[field];
-      }
-
-      if (lastValue == null) return "";
-
-      return lastValue;
-
-    };
-
     $scope.addDataItem = function(item){
 
       var newRow = {columns:[]};
 
-      $scope.view.fields.forEach(function(field){
-        newRow.columns.push($scope.getValue(item, field, $scope.schema));
+      $scope.view.mode.list.fields.forEach(function(field){
+        newRow.columns.push(uiService.getValue(item, field));
       });
 
-      newRow.id = item._meta.path.split('/')[item._meta.path.split('/').length - 1];
-      newRow.editURI = '/data/' + $scope.schema.name + '/edit/' + newRow.id;
-      newRow.deleteURI = '/data/' + $scope.schema.name + '/delete/' + newRow.id;
+      newRow.editURI = '/' + $scope.schema.name + '/edit/' + item.number;
+      newRow.deleteURI = '/' + $scope.schema.name + '/delete/' + item.number;
 
       $scope.data.rows.push(newRow);
     };
@@ -277,6 +264,7 @@ happnerApp.controller('ObjectSearchController', ['$scope', '$rootScope', '$compi
 
           initialValues.map(function(value){
 
+            console.log('adding data item:::', value);
             $scope.addDataItem(value);
           });
         }
@@ -295,19 +283,25 @@ happnerApp.controller('ObjectSearchController', ['$scope', '$rootScope', '$compi
 
     $scope.init = function(){
 
-      dataService.get('/data/view/' + $scope.currentType, function(e, view){
+      uiService.schemaByName($scope.currentType, function(e, schema){
 
-        if (e) return $rootScope.notify('failed to fetch view', 'danger', 2000);
+        if (e) return $rootScope.notify('failed to fetch schema', 'danger', 2000);
 
-        $scope.view = view;
+        if (!schema) return $rootScope.notify('failed to find schema: ' + $scope.currentType, 'danger', 2000);
 
-        $scope.prepareUI($scope.view);
+        $scope.schema = schema;
 
-        dataService.get('/system/schema/' + $scope.currentType, function(e, schema){
+        uiService.viewByName($scope.currentType, function(e, view) {
 
-          if (e) return $rootScope.notify('failed to fetch schema', 'danger', 2000);
+          if (e) return $rootScope.notify('failed to fetch view', 'danger', 2000);
 
-          $scope.schema = schema;
+          if (!view) return $rootScope.notify('failed to find view: ' + $scope.currentType, 'danger', 2000);
+
+          if (!view.mode.list.enabled) return $rootScope.notify('view list is not enabled', 'danger', 2000);
+
+          $scope.view = view;
+
+          $scope.prepareUI($scope.view);
 
           $scope.openControlChannel($scope.basePath + '/*', function(e){
 

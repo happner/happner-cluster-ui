@@ -1,0 +1,86 @@
+{
+  "title": "[my new schema]",
+  "type": "object",
+  "properties": {
+    "string property": {
+      "type": "string",
+      "description": "[description]",
+      "minLength": 4,
+      "default": "[default value]"
+    },
+    "integer property": {
+      "type": "integer",
+      "default": 25,
+      "minimum": 18,
+      "maximum": 99
+    },
+    "color property": {
+      "type": "string",
+      "format": "color",
+      "title": "favorite color",
+      "default": "#ffa500"
+    },
+    "enumeration property": {
+      "type": "string",
+      "enum": [
+        "male",
+        "female"
+      ]
+    },
+    "composite_property": {
+      "type": "object",
+      "title": "another object",
+      "properties": {
+        "nested_string": {
+          "type": "string",
+          "default": "generated"
+        },
+        "another_nested_string": {
+          "type": "string",
+          "default": "nicely!"
+        },
+        "generated_string": {
+          "type": "string",
+          "description": "generated automatically from previous 2 fields",
+          "template": "{{nested_string}} {{another_nested_string}}",
+          "watch": {
+            "nested_string": "composite_property.nested_string",
+            "another_nested_string": "composite_property.another_nested_string"
+          }
+        }
+      }
+    },
+    "array_example": {
+      "type": "array",
+      "format": "table",
+      "title": "array example",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "title": "array item",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "cat",
+              "dog",
+              "bird",
+              "reptile",
+              "other"
+            ],
+            "default": "dog"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "default": [
+        {
+          "type": "dog",
+          "name": "Walter"
+        }
+      ]
+    }
+  }
+}

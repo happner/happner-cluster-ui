@@ -92,6 +92,9 @@ var terminate = function (code) {
 
 app.start(config, function (e) {
   if (e) {
+
+    console.log('OOPS:::', e);
+
     terminate(1);
   } else {
     __started = true;

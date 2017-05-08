@@ -1,28 +1,8 @@
 {
-  "organisation":1,
+  "organisation":0,
   "schema":{
-    "schemaType":"composite",
-    "number":[12, 11, 10, 9],
-    "relatedFields":["organisation"],
-    "deduplicate":{
-      "fields":{
-        "cost":{
-          "operation":"SUM"
-        },
-        "shipping-code":{
-          "operation":"duplicate"
-        }
-      },
-      "defaultOperation":"duplicate"
-    },
-    "merge":{
-      "fields":{
-        "name":{
-          "operation":"split"
-        }
-      },
-      "defaultOperation":"replace:12"
-    }
+    "schemaType":"simple",
+    "number":1
   },
   "mode":{
     "edit":{
@@ -34,9 +14,9 @@
         "label": ""
       },
       "fields":[
-        {"fieldName":"name", "defaultValue":"test", "editable":true},
-        {"fieldName":"created", "defaultValue":"test", "editable":false},
-        {"fieldName":"modified", "defaultValue":"test", "editable":false, "filter":""}
+        {"fieldName":"name", "default":"test", "readOnly":false},
+        {"fieldName":"_meta.created", "readOnly":true, "label":"created"},
+        {"fieldName":"_meta.modified", "readOnly":true, "label":"modified"}
       ]
     },
     "delete":{
@@ -49,6 +29,7 @@
     },
     "list":{
       "enabled":true,
+      "filter":[],
       "sidebar":{
         "enabled":false,
         "area":"warehouse",

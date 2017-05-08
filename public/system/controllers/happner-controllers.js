@@ -75,7 +75,7 @@ happnerControllers.controller('AppController', ['$scope', 'dataService', '$rootS
 
   $rootScope.updateData = function (item) {
     console.log('updating data:::', item);
-  }
+  };
 
   $rootScope.openModal = function (templatePath, controller, handler, args) {
 
@@ -240,8 +240,6 @@ happnerControllers.controller('ActionsController', ['$scope', 'dataService', '$r
   };
 
   $rootScope.$emit('actionsReady', $scope.editController);
-
-  console.log('SET UP ROOTSCOPE:::');
 
 }]);
 

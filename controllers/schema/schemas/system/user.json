@@ -1,5 +1,5 @@
 {
-  "title":"User",
+  "title":"user",
   "properties":{
     "name": {
       "id": "/properties/name",

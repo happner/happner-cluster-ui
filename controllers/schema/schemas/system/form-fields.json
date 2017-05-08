@@ -1,0 +1,68 @@
+{
+  "type":"array",
+  "uniqueItems": true,
+  "items": {
+    "id": "/properties/criteria/items",
+    "type": "object",
+    "properties":{
+      "fieldName":{
+        "id": "/properties/criteria/items/properties/fieldName",
+        "type":"string",
+        "required":true
+      },
+      "controlType":{
+        "id": "/properties/criteria/items/properties/filterType",
+        "type": "string",
+        "enum": [
+          "SingleSelect",
+          "Range",
+          "MultiSelect",
+          "Input",
+          "Checkbox"
+        ],
+        "required":true,
+        "default":"Input"
+      },
+      "fieldType":{
+        "id": "/properties/criteria/items/properties/fieldType",
+        "type": "string",
+        "enum": [
+          "String",
+          "Number",
+          "Boolean",
+          "Date",
+          "Relationship"
+        ],
+        "required":true,
+        "default":"String"
+      },
+      "label":{
+        "id": "/properties/criteria/items/properties/label",
+        "type": "string"
+      },
+      "default":{
+        "id": "/properties/criteria/items/properties/default",
+        "type": "string"
+      },
+      "relationship":{
+        "id": "/properties/criteria/items/properties/relationship",
+        "type":"object",
+        "properties":{
+          "relatedSchema":{
+            "id": "/properties/criteria/items/properties/fieldType/config/relatedSchema",
+            "type":"string"
+          },
+          "relatedField":{
+            "id": "/properties/criteria/items/properties/fieldType/config/relatedField",
+            "type":"string"
+          }
+        }
+      },
+      "readOnly":{
+        "id": "/properties/criteria/items/properties/readOnly",
+        "type": "boolean",
+        "default":false
+      }
+    }
+  }
+}

@@ -119,8 +119,6 @@
           }
 
           if (!this.connected) return callback(new Error('not connected'));
-
-          console.log('getting now:::', path, opts, callback);
           return this.client.data.get(path, opts, callback);
 
         },
@@ -166,7 +164,6 @@
           if (!this.connected) return callback(new Error('not connected'));
 
           return this.client.data.on(path, opts, handler, function(e){
-            console.log('DID ON:::', path, opts);
             callback(e);
           });
         },
@@ -183,6 +180,64 @@
 
         }
       }
+    }])
+
+    .factory('uiService', ['$window', '$rootScope', 'dataService', function (wind, $rootScope, dataService) {
+
+      return {
+        __schemaCache:{},
+        __viewCache:{},
+        schemaByName: function(name, callback){
+
+          var _this = this;
+
+          if (_this.__schemaCache[name]) return _this.__schemaCache[name];
+
+          dataService.get('/data/schema/*', function(e, schemas){
+
+            if (e) return callback(e);
+
+            if (schemas.length == 0) return callback(null, null);
+
+            schemas.forEach(function(schema){
+              _this.__schemaCache[schema.name] = schema;
+            });
+
+            return callback(null, _this.__schemaCache[name]);
+          });
+        },
+        viewByName: function(name, callback){
+
+          var _this = this;
+
+          if (_this.__viewCache[name]) return _this.__viewCache[name];
+
+          dataService.get('/data/view/*', function(e, views){
+
+            if (e) return callback(e);
+
+            if (views.length == 0) return callback(null, null);
+
+            views.forEach(function(view){
+              _this.__viewCache[view.name] = view;
+            });
+
+            return  callback(null, _this.__viewCache[name]);
+          });
+        },
+        getValue: function(obj, field){
+
+          var properties = field.fieldName.split('.');
+          var lastVal = obj;
+
+          properties.forEach(function(property){
+            lastVal = lastVal[property];
+          });
+
+          return lastVal;
+        }
+      }
+
     }])
 
 })(window, window.angular);

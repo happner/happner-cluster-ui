@@ -80,9 +80,14 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
       templateUrl : './organisation/templates/dashboard.html'
     })
 
+    .when('/:type/search', {
+      templateUrl: '/warehouse/templates/object-search.html',
+      controller:'ObjectSearchController'
+    })
+
     .when('/organisation/search', {
       templateUrl: '/warehouse/templates/object-search.html?type=organisation',
-      controller:'DataSearchController'
+      controller:'ObjectSearchController'
     })
 
     .when('/cluster/edit/:id', {
@@ -140,7 +145,7 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
     // route for the about page
     .when('/warehouse/schema/search', {
       templateUrl : '/warehouse/templates/object-search.html',
-      controller:'DataSchemaSearchController'
+      controller:'SchemaSearchController'
     })
 
     .when('/warehouse/schema/edit/:type', {
@@ -153,7 +158,7 @@ happnerApp.config(function (JSONEditorProvider, $locationProvider, $routeProvide
       templateUrl: function(urlattr){
         return '/warehouse/templates/object-search.html?type=' + urlattr.type;
       },
-      controller:'DataSearchController'
+      controller:'ObjectSearchController'
     })
 
     .when('/warehouse/data/:type/edit/:id', {

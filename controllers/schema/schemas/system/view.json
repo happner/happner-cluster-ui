@@ -1,5 +1,5 @@
 {
-  "title":"View",
+  "title":"view",
   "properties": {
     "name": {
       "id": "/properties/name",
@@ -7,11 +7,16 @@
     },
     "number": {
       "id": "/properties/number",
-      "type": "integer"
+      "type": "integer",
+      "readOnly":true
     },
     "organisation": {
       "id": "/properties/organisation",
-      "type": "integer"
+      "type": "integer",
+      "$id":"organisation:number",
+      "$label":"organisation:name",
+      "readOnly":true,
+      "default":0
     },
     "deleted": {
       "type":"string",
@@ -28,7 +33,8 @@
         },
         "createdBy": {
           "id": "/properties/_meta/properties/createdBy",
-          "type": "string"
+          "type": "string",
+          "readOnly":true
         },
         "modified": {
           "type":"string",
@@ -51,8 +57,16 @@
             "sidebar": {
               "id": "/properties/mode/properties/delete/properties/sidebar",
               "properties": {
+                "label": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/label",
+                  "type": "string"
+                },
                 "area": {
                   "id": "/properties/mode/properties/delete/properties/sidebar/properties/area",
+                  "type": "string"
+                },
+                "url": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/url",
                   "type": "string"
                 },
                 "enabled": {
@@ -78,31 +92,21 @@
             },
             "fields": {
               "id": "/properties/mode/properties/edit/properties/fields",
-              "items": {
-                "id": "/properties/mode/properties/edit/properties/fields/items",
-                "properties": {
-                  "defaultValue": {
-                    "id": "/properties/mode/properties/edit/properties/fields/items/properties/defaultValue",
-                    "type": "string"
-                  },
-                  "editable": {
-                    "id": "/properties/mode/properties/edit/properties/fields/items/properties/editable",
-                    "type": "boolean"
-                  },
-                  "fieldName": {
-                    "id": "/properties/mode/properties/edit/properties/fields/items/properties/fieldName",
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
+              "$ref":"./schemas/system/form-fields.json"
             },
             "sidebar": {
               "id": "/properties/mode/properties/edit/properties/sidebar",
               "properties": {
+                "label": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/label",
+                  "type": "string"
+                },
                 "area": {
-                  "id": "/properties/mode/properties/edit/properties/sidebar/properties/area",
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/area",
+                  "type": "string"
+                },
+                "url": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/url",
                   "type": "string"
                 },
                 "enabled": {
@@ -130,33 +134,32 @@
               "id": "/properties/mode/properties/list/properties/enabled",
               "type": "boolean"
             },
-            "fields": {
-              "id": "/properties/mode/properties/list/properties/fields",
-              "items": {
-                "id": "/properties/mode/properties/list/properties/fields/items",
-                "properties": {
-                  "fieldName": {
-                    "id": "/properties/mode/properties/list/properties/fields/items/properties/fieldName",
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
-            },
             "filters": {
               "id": "/properties/mode/properties/list/properties/filters",
               "items": {
                 "id": "/properties/mode/properties/list/properties/filters/items",
                 "type": "integer"
               },
-              "type": "array"
+              "type": "array",
+              "default":[1]
+            },
+            "fields": {
+              "id": "/properties/mode/properties/list/fields",
+              "$ref":"./schemas/system/form-fields.json"
             },
             "sidebar": {
               "id": "/properties/mode/properties/list/properties/sidebar",
               "properties": {
+                "label": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/label",
+                  "type": "string"
+                },
                 "area": {
-                  "id": "/properties/mode/properties/list/properties/sidebar/properties/area",
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/area",
+                  "type": "string"
+                },
+                "url": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/url",
                   "type": "string"
                 },
                 "enabled": {
@@ -183,8 +186,16 @@
             "sidebar": {
               "id": "/properties/mode/properties/view/properties/sidebar",
               "properties": {
+                "label": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/label",
+                  "type": "string"
+                },
                 "area": {
-                  "id": "/properties/mode/properties/view/properties/sidebar/properties/area",
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/area",
+                  "type": "string"
+                },
+                "url": {
+                  "id": "/properties/mode/properties/delete/properties/sidebar/properties/url",
                   "type": "string"
                 },
                 "enabled": {
@@ -203,10 +214,6 @@
         }
       },
       "type": "object"
-    },
-    "organisation": {
-      "id": "/properties/organisation",
-      "type": "integer"
     },
     "schema": {
       "id": "/properties/schema",

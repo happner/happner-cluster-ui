@@ -28,11 +28,11 @@
   "private": true,
   "dependencies": {
     "async": "^1.5.2",
-    "serve-static": "^1.12.1",
     "bluebird": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz",
-    "dotenv": "^2.0.0"
+    "dotenv": "^2.0.0",
+    "serve-static": "^1.12.1",
+    "traverse": "^0.6.6"
   },
-
   "happner": {
     "dependencies": {
       "happner-cluster-ui": {

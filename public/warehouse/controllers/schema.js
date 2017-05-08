@@ -1,5 +1,5 @@
 
-happnerApp.controller('DataSchemaEditController', ['$scope',
+happnerApp.controller('SchemaEditController', ['$scope',
   '$rootScope',
   '$compile',
   '$q',
@@ -466,7 +466,7 @@ happnerApp.controller('DataSchemaEditController', ['$scope',
   }
 ]);
 
-happnerApp.controller('DataSchemaSearchController', [
+happnerApp.controller('SchemaSearchController', [
   '$scope',
   '$rootScope',
   '$window',

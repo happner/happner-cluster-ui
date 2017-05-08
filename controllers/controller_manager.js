@@ -50,6 +50,27 @@ Controllers.prototype.objectId = function(type, callback){
   });
 };
 
+Controllers.prototype.isInitialized = function(controllerName, callback){
+
+  var _this = this;
+
+  _this.__mesh.data.get('/_SYSTEM/controller/' + controllerName + '/initialised', function(e, found){
+
+    if (e) return callback(e);
+
+    if (found == null) return callback(null, false);
+
+    return callback(null, true);
+  });
+};
+
+Controllers.prototype.setInitializedFlag = function(controllerName, callback){
+
+  var _this = this;
+
+  _this.__mesh.data.set('/_SYSTEM/controller/' + controllerName + '/initialised', true, callback);
+};
+
 Controllers.prototype.__log = function(type, message, data){
 
 };
@@ -146,10 +167,22 @@ Controllers.prototype.__initializeControllers = function(initOrder, callback){
     if (controller.instance.typeName){
       Object.defineProperty(controller.instance, '__objectId', {
         value:function(cb){
-          return _this.objectId(this.typeName, cb);
-        }.bind({typeName:controller.instance.typeName})
+          return _this.objectId(this.name, cb);
+        }.bind({name:controller.name})
       });
     }
+
+    Object.defineProperty(controller.instance, '__isInitialized', {
+      value:function(cb){
+        return _this.isInitialized(this.name, cb);
+      }.bind({name:controller.name})
+    });
+
+    Object.defineProperty(controller.instance, '__setInitializedFlag', {
+      value:function(cb){
+        return _this.setInitializedFlag(this.name, cb);
+      }.bind({name:controller.name})
+    });
 
     if (!controller.instance.initialize) {
       controller.instance.state = constants.CONTROLLER_STATE.STARTED;

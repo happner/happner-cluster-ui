@@ -1,0 +1,57 @@
+{
+  "name":"default",
+  "number":1,
+  "organisation":1,
+  "deleted":null,
+  "criteria": [
+    {
+      "fieldName": "name",
+      "filterType": "Input",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "created",
+      "filterType": "Range",
+      "fieldType": "Date"
+    },
+    {
+      "fieldName": "modified",
+      "filterType": "Range",
+      "fieldType": "Date"
+    },
+    {
+      "fieldName": "deleted",
+      "filterType": "Boolean",
+      "fieldType": "Null=false",
+      "default":false
+    },
+    {
+      "fieldName": "modifiedBy",
+      "filterType": "SingleSelect",
+      "fieldType": "Relationship",
+      "label": "modified by",
+      "relationship": {
+        "relatedSchema": "user",
+        "relatedField": "username"
+      }
+    }
+  ],
+  "options": {
+    "runImmediate": {
+      "activated": true
+    },
+    "runOnChange": {
+      "activated": true,
+      "delay": 1000
+    },
+    "sort": {
+      "fields": [
+        {
+          "fieldName":"name",
+          "direction":"ASC"
+        }
+      ]
+    },
+    "limit": 100
+  }
+}
